@@ -1,0 +1,6 @@
+{
+  "Name": "Inscription_Scolaire_RPA",
+  "ProjectType": "Process",
+  "Description": "Processus vierge",
+  "MainFile": "Main.xaml"
+}

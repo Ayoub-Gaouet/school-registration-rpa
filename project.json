@@ -1,0 +1,73 @@
+{
+  "name": "Inscription_Scolaire_RPA",
+  "projectId": "854579f1-0c73-4390-93a9-54422dfbef8c",
+  "description": "Processus vierge",
+  "main": "Main.xaml",
+  "dependencies": {
+    "MySql.Data": "9.1.0",
+    "UiPath.Database.Activities": "2.0.0",
+    "UiPath.Mail.Activities": "2.5.10",
+    "UiPath.System.Activities": "[25.12.2]",
+    "UiPath.UIAutomation.Activities": "25.10.20"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "26.0.188.0",
+  "projectVersion": "1.0.1",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "workflowSerialization": "NewtonsoftJson",
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": true,
+    "pipType": "ChildSession"
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "saveToCloud": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "eaeb6a35-aa5a-4b8a-8076-d4d3ed261640",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "LectureBD.xaml",
+      "uniqueId": "1095db03-01e8-47f2-8fd3-c43c3daac729",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "Workflow2_Verification.xaml",
+      "uniqueId": "8c9ee490-04e1-48d8-b438-35e296ed52fd",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows"
+}
