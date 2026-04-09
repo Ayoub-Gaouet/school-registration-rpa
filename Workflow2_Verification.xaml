@@ -233,81 +233,127 @@
       <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="679.6,723.2" sap2010:WorkflowViewState.IdRef="Sequence_16">
+  <Sequence sap:VirtualizedContainerService.HintSize="1280.4,2412.8" sap2010:WorkflowViewState.IdRef="Sequence_39">
     <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="v_RegId" />
+      <Variable x:TypeArguments="x:String" Name="v_Prenom" />
+      <Variable x:TypeArguments="x:String" Name="v_Email" />
+      <Variable x:TypeArguments="x:String" Name="v_ConnString" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtDossiers" />
       <Variable x:TypeArguments="x:Int32" Name="__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_" />
       <Variable x:TypeArguments="x:String" Name="__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
       <Variable x:TypeArguments="x:String" Name="__v_Email__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
       <Variable x:TypeArguments="x:Int32" Name="_v_RegId__as_System_Activities_OutArgument_System_Int32_" />
       <Variable x:TypeArguments="x:String" Name="_v_Prenom__as_System_Activities_OutArgument_System_String_" />
       <Variable x:TypeArguments="x:String" Name="_v_Email__as_System_Activities_OutArgument_System_String_" />
-      <Variable x:TypeArguments="x:Int32" Name="v_RegId" />
-      <Variable x:TypeArguments="x:String" Name="v_Prenom" />
-      <Variable x:TypeArguments="x:String" Name="v_Email" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ManualTrigger Result="{x:Null}" DisplayName="The user did not specify a trigger, so a manual one is used to start the process." sap:VirtualizedContainerService.HintSize="452.8,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_3" />
-    <ui:LogMessage DisplayName="Log the start of the dossier verification process." sap:VirtualizedContainerService.HintSize="452.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Début de la vérification des dossiers&quot;]" />
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Iterate through each row of the input datatable containing the dossiers." sap:VirtualizedContainerService.HintSize="452.8,281.6" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+    <ui:ManualTrigger Result="{x:Null}" DisplayName="The user did not specify a trigger, so a manual one is used to start the process." sap:VirtualizedContainerService.HintSize="553.6,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_6" />
+    <ui:LogMessage DisplayName="Log the start of the dossier verification process." sap:VirtualizedContainerService.HintSize="553.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_26" Level="Info" Message="[&quot;Début de la vérification des dossiers&quot;]" />
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Iterate through each row of the input datatable containing the dossiers." sap:VirtualizedContainerService.HintSize="553.6,1971.2" sap2010:WorkflowViewState.IdRef="ForEachRow_6">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="451.2,100" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="552,1789.6" sap2010:WorkflowViewState.IdRef="Sequence_38">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:LogMessage DisplayName="Log the processing of the current dossier using its registration ID." sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Traitement dossier: &quot; &amp; CurrentRow(&quot;reg_id&quot;).ToString()]" />
-            <TryCatch DisplayName="Use a Try-Catch block to handle potential errors during data extraction and conversion for each dossier." sap2010:WorkflowViewState.IdRef="TryCatch_3">
+            <ui:LogMessage DisplayName="Log the processing of the current dossier using its registration ID." sap:VirtualizedContainerService.HintSize="518.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_27" Level="Info" Message="[String.Format(&quot;Traitement dossier: {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
+            <TryCatch DisplayName="Use a Try-Catch block to handle potential errors during data extraction and conversion for each dossier." sap:VirtualizedContainerService.HintSize="518.4,1555.2" sap2010:WorkflowViewState.IdRef="TryCatch_6">
               <TryCatch.Try>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_12">
-                  <Assign DisplayName="Assign the registration ID from the current row to the v_RegId variable, converting it to an integer." sap2010:WorkflowViewState.IdRef="Assign_7">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:Int32">[__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <Assign DisplayName="Assign the first name from the current row to the v_Prenom variable." sap2010:WorkflowViewState.IdRef="Assign_8">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:String">[__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">[CurrentRow("prenom").ToString()]</InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <Assign DisplayName="Assign the email from the current row to the v_Email variable." sap2010:WorkflowViewState.IdRef="Assign_9">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="x:String">[__v_Email__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_]</OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">[CurrentRow("email").ToString()]</InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <ui:LogMessage DisplayName="Log a success message confirming the verification of the current dossier's details." sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Vérifié: &quot; &amp; v_Prenom &amp; &quot; (&quot; &amp; v_Email &amp; &quot;)&quot;]" />
+                <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="516.8,915.2" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="483.2,855.2" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="449.6,772" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Assign the registration ID from the current row to the v_RegId variable, converting it to an integer." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_16">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Int32">[v_RegId]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign DisplayName="Assign the first name from the current row to the v_Prenom variable." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_17">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[v_Prenom]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[CurrentRow("prenom").ToString()]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign DisplayName="Assign the email from the current row to the v_Email variable." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_18">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[v_Email]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[CurrentRow("email").ToString()]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <ui:LogMessage DisplayName="Log a success message confirming the verification of the current dossier's details." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_28" Level="Info" Message="[String.Format(&quot;Vérifié: {0} ({1})&quot;, v_Prenom, v_Email)]" />
+                    </Sequence>
+                  </Sequence>
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
-                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_6">
                   <ActivityAction x:TypeArguments="s:Exception">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_13" />
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="516.8,89.6" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Sequence>
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
               <TryCatch.Finally>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_14">
-                  <ui:LogMessage DisplayName="Log a message indicating the end of processing for the current dossier." sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Fin traitement dossier&quot;]" />
+                <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="516.8,392" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="483.2,332" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="449.6,248.8" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:LogMessage DisplayName="Log a message indicating the end of processing for the current dossier." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_29" Level="Info" Message="[&quot;Fin traitement dossier&quot;]" />
+                    </Sequence>
+                  </Sequence>
                 </Sequence>
               </TryCatch.Finally>
             </TryCatch>
@@ -315,6 +361,6 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <ui:LogMessage DisplayName="Log a final message to indicate that the entire verification process is complete." sap:VirtualizedContainerService.HintSize="452.8,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[&quot;Vérification terminée&quot;]" />
+    <ui:LogMessage DisplayName="Log a final message to indicate that the entire verification process is complete." sap:VirtualizedContainerService.HintSize="553.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_30" Level="Info" Message="[&quot;Vérification terminée&quot;]" />
   </Sequence>
 </Activity>

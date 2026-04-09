@@ -231,19 +231,30 @@
       <AssemblyReference>Microsoft.CodeAnalysis.Features</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="679.6,2988.8" sap2010:WorkflowViewState.IdRef="Sequence_31">
+  <Sequence sap:VirtualizedContainerService.HintSize="721.6,2823.2" sap2010:WorkflowViewState.IdRef="Sequence_69">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="v_ConnString" />
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="DatabaseConnection" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtDossiers" />
+      <Variable x:TypeArguments="x:Int32" Name="__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_" />
+      <Variable x:TypeArguments="x:String" Name="__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:String" Name="__v_Email__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:Int32" Name="_v_RegId__as_System_Activities_OutArgument_System_Int32_" />
+      <Variable x:TypeArguments="x:String" Name="_v_Prenom__as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:String" Name="_v_Email__as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:Int32" Name="v_RegId" />
+      <Variable x:TypeArguments="x:String" Name="v_Prenom" />
+      <Variable x:TypeArguments="x:String" Name="v_Email" />
+      <Variable x:TypeArguments="x:String" Name="in_ConnString" />
+      <Variable x:TypeArguments="sd:DataTable" Name="in_DossierTable" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ManualTrigger Result="{x:Null}" DisplayName="The user wants to manually start this workflow to process school enrollment dossiers from a database." sap:VirtualizedContainerService.HintSize="620.8,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_3" />
-    <Assign DisplayName="Assign the MySQL database connection string to the v_ConnString variable." sap:VirtualizedContainerService.HintSize="620.8,174.4" sap2010:WorkflowViewState.IdRef="Assign_3">
+    <ui:ManualTrigger Result="{x:Null}" DisplayName="The user wants to manually start this workflow to process school enrollment dossiers from a database." sap:VirtualizedContainerService.HintSize="721.6,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_5" />
+    <Assign DisplayName="Assign the MySQL database connection string to the v_ConnString variable." sap:VirtualizedContainerService.HintSize="721.6,174.4" sap2010:WorkflowViewState.IdRef="Assign_5">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[v_ConnString]</OutArgument>
       </Assign.To>
@@ -251,134 +262,146 @@
         <InArgument x:TypeArguments="x:String">["Server=127.0.0.1;Port=3307;Database=bpmn_db;Uid=root;Pwd=;"]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Log a message indicating the start of the database connection process." sap:VirtualizedContainerService.HintSize="620.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Connexion à la base de données&quot;]" />
-    <TryCatch DisplayName="Use a Try-Catch-Finally block to handle database operations and ensure disconnection." sap:VirtualizedContainerService.HintSize="620.8,2538.4" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+    <ui:LogMessage DisplayName="Log a message indicating the start of the database connection process." sap:VirtualizedContainerService.HintSize="721.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_17" Level="Info" Message="[&quot;Connexion à la base de données&quot;]" />
+    <TryCatch DisplayName="Use a Try-Catch-Finally block to handle database operations and ensure disconnection." sap:VirtualizedContainerService.HintSize="721.6,2372.8" sap2010:WorkflowViewState.IdRef="TryCatch_5">
       <TryCatch.Try>
-        <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="619.2,1841.6" sap2010:WorkflowViewState.IdRef="Sequence_26">
+        <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="720,2174.4" sap2010:WorkflowViewState.IdRef="Sequence_62">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="585.6,1781.6" sap2010:WorkflowViewState.IdRef="Sequence_25">
+          <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="686.4,2114.4" sap2010:WorkflowViewState.IdRef="Sequence_61">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="552,1698.4" sap2010:WorkflowViewState.IdRef="Sequence_24">
+            <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="652.8,2031.2" sap2010:WorkflowViewState.IdRef="Sequence_60">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance)" DisplayName="Register the MySQL .NET data provider factory." sap:VirtualizedContainerService.HintSize="518.4,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
-                <ui:InvokeCode.Arguments>
-                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                </ui:InvokeCode.Arguments>
-              </ui:InvokeCode>
-              <ui:DatabaseConnect DisplayName="Connect to the MySQL database using the specified connection string and provider." sap:VirtualizedContainerService.HintSize="518.4,92" sap2010:WorkflowViewState.IdRef="DatabaseConnect_3" ProviderName="MySql.Data.MySqlClient" ConnectionString="[v_ConnString]" DatabaseConnection="[DatabaseConnection]" />
-              <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[dtDossiers]" DisplayName="Execute a query to select all records from the dossiers_inscription table." ExistingDbConnection="[DatabaseConnection]" sap:VirtualizedContainerService.HintSize="518.4,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_3" Sql="SELECT r.id, r.pupil_id, r.establishment_id, r.school_year_id, r.teaching_level_id, r.education_class_id, r.status, r.created_at, r.previous_school_year_average FROM registrations r">
-                <ui:ExecuteQuery.Parameters>
-                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                </ui:ExecuteQuery.Parameters>
-              </ui:ExecuteQuery>
-              <ui:LogMessage DisplayName="Log a success message with the count of retrieved registrations." sap:VirtualizedContainerService.HintSize="518.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[String.Format(&quot;Connexion réussie, inscriptions: {0}&quot;, dtDossiers.Rows.Count)]" />
-              <If Condition="[dtDossiers.Rows.Count &gt; 0]" DisplayName="Check if any dossiers were found in the database." sap:VirtualizedContainerService.HintSize="518.4,1004.8" sap2010:WorkflowViewState.IdRef="If_3">
-                <If.Then>
-                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="516.8,483.2" sap2010:WorkflowViewState.IdRef="Sequence_20">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="483.2,423.2" sap2010:WorkflowViewState.IdRef="Sequence_19">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,340" sap2010:WorkflowViewState.IdRef="Sequence_18">
+              <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="619.2,1948" sap2010:WorkflowViewState.IdRef="Sequence_59">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="585.6,1864.8" sap2010:WorkflowViewState.IdRef="Sequence_58">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance)" DisplayName="Register the MySQL .NET data provider factory." sap:VirtualizedContainerService.HintSize="552,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_4">
+                    <ui:InvokeCode.Arguments>
+                      <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                    </ui:InvokeCode.Arguments>
+                  </ui:InvokeCode>
+                  <ui:DatabaseConnect DisplayName="Connect to the MySQL database using the specified connection string and provider." sap:VirtualizedContainerService.HintSize="552,92" sap2010:WorkflowViewState.IdRef="DatabaseConnect_5" ProviderName="MySql.Data.MySqlClient" ConnectionString="[v_ConnString]" DatabaseConnection="[DatabaseConnection]" />
+                  <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[dtDossiers]" DisplayName="Execute a query to select registration records from registrations and pupils." ExistingDbConnection="[DatabaseConnection]" sap:VirtualizedContainerService.HintSize="552,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_5" Sql="SELECT r.id AS reg_id, p.name_first_name AS prenom, p.email AS email, r.status, r.created_at, r.establishment_id, r.school_year_id, r.teaching_level_id, r.education_class_id, r.previous_school_year_average FROM registrations r LEFT JOIN pupils p ON r.pupil_id = p.id">
+                    <ui:ExecuteQuery.Parameters>
+                      <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                    </ui:ExecuteQuery.Parameters>
+                  </ui:ExecuteQuery>
+                  <ui:LogMessage DisplayName="Log a success message with the count of retrieved registrations." sap:VirtualizedContainerService.HintSize="552,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Info" Message="[String.Format(&quot;Connexion réussie, inscriptions: {0}&quot;, dtDossiers.Rows.Count)]" />
+                  <If Condition="[dtDossiers.Rows.Count &gt; 0]" DisplayName="Check if any dossiers were found in the database." sap:VirtualizedContainerService.HintSize="552,1171.2" sap2010:WorkflowViewState.IdRef="If_5">
+                    <If.Then>
+                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="550.4,566.4" sap2010:WorkflowViewState.IdRef="Sequence_53">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="If dossiers are found, invoke the verification workflow, passing the connection string and the data table as arguments." sap:VirtualizedContainerService.HintSize="416,256.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Workflow2_Verification.xaml">
-                          <ui:InvokeWorkflowFile.Arguments>
-                            <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                          </ui:InvokeWorkflowFile.Arguments>
-                        </ui:InvokeWorkflowFile>
+                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="516.8,506.4" sap2010:WorkflowViewState.IdRef="Sequence_52">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="483.2,423.2" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,340" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="If dossiers are found, invoke the verification workflow, passing the connection string and the data table as arguments." sap:VirtualizedContainerService.HintSize="416,256.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Workflow2_Verification.xaml">
+                                <ui:InvokeWorkflowFile.Arguments>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
+                                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_DossierTable">[dtDossiers]</InArgument>
+                                </ui:InvokeWorkflowFile.Arguments>
+                              </ui:InvokeWorkflowFile>
+                            </Sequence>
+                          </Sequence>
+                        </Sequence>
                       </Sequence>
-                    </Sequence>
-                  </Sequence>
-                </If.Then>
-                <If.Else>
-                  <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="516.8,392" sap2010:WorkflowViewState.IdRef="Sequence_23">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="483.2,332" sap2010:WorkflowViewState.IdRef="Sequence_22">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,248.8" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="550.4,475.2" sap2010:WorkflowViewState.IdRef="Sequence_57">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:LogMessage DisplayName="If no registrations are found, log a warning message." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Warn" Message="[&quot;Aucune inscription trouvée dans la base de données&quot;]" />
+                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="516.8,415.2" sap2010:WorkflowViewState.IdRef="Sequence_56">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="483.2,332" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,248.8" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="If no registrations are found, log a warning message." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_19" Level="Warn" Message="[&quot;Aucune inscription trouvée dans la base de données&quot;]" />
+                            </Sequence>
+                          </Sequence>
+                        </Sequence>
                       </Sequence>
-                    </Sequence>
-                  </Sequence>
-                </If.Else>
-              </If>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </Sequence>
             </Sequence>
           </Sequence>
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_5">
           <ActivityAction x:TypeArguments="s:Exception">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="619.2,89.6" sap2010:WorkflowViewState.IdRef="Sequence_27">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </Sequence>
+            <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_63" />
           </ActivityAction>
         </Catch>
       </TryCatch.Catches>
       <TryCatch.Finally>
-        <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="619.2,448.8" sap2010:WorkflowViewState.IdRef="Sequence_30">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="585.6,388.8" sap2010:WorkflowViewState.IdRef="Sequence_29">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="449.6,305.6" sap2010:WorkflowViewState.IdRef="Sequence_28">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-              <ui:DatabaseDisconnect DatabaseConnection="[DatabaseConnection]" DisplayName="Disconnect from the database to release the connection." sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_3" />
-              <ui:LogMessage DisplayName="Log a message indicating the database disconnection is complete." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Déconnexion terminée&quot;]" />
+        <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_68">
+          <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_67">
+            <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_66">
+              <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_64">
+                  <ui:DatabaseDisconnect DatabaseConnection="[DatabaseConnection]" DisplayName="Disconnect from the database to release the connection." sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_5" />
+                  <ui:LogMessage DisplayName="Log a message indicating the database disconnection is complete." sap2010:WorkflowViewState.IdRef="LogMessage_20" Level="Info" Message="[&quot;Déconnexion terminée&quot;]" />
+                </Sequence>
+              </Sequence>
             </Sequence>
           </Sequence>
         </Sequence>
