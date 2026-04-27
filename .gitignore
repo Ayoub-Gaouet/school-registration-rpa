@@ -1,44 +1,22 @@
-# ===========================
-# UiPath Project .gitignore
-# ===========================
-
-# UiPath local cache & settings
-.local/
+# UiPath specific
+.entities/
 .objects/
-.project/
-.settings/
-.tmh/
-
-# NuGet packages
-packages/
-
-# Screenshots & debug output
 .screenshots/
-
-# Output folders
-Output/
-
-# OS generated files
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-.DS_Store
-
-# Visual Studio files
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-bin/
-obj/
-
-# Rider / JetBrains
-.idea/
+.settings/
+*.xaml.json
+project.uiproj
+TestCases/
+.local/
 
 # Logs
 *.log
 
-# Temporary files
-*.tmp
-~$*
+# IDE files
+.vs/
+*.suo
+*.user
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
