@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Workflow2_Verification" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Workflow2_Verification" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="UiPathEventConnector" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEvent" Type="InArgument(x:String)" />
@@ -144,6 +144,13 @@
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
       <x:String>UiPath.Database.Activities</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail.Enums</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.Mail.Activities.Enums</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -238,10 +245,15 @@
       <AssemblyReference>System.Net.Sockets</AssemblyReference>
       <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="703.6,4610.4" sap2010:WorkflowViewState.IdRef="Sequence_819">
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770985">
     <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="v_SmtpUsername" />
+      <Variable x:TypeArguments="ss:SecureString" Name="v_SmtpPassword" />
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="v_DbConnection" />
       <Variable x:TypeArguments="x:Int32" Name="v_TeachingLevelId" />
       <Variable x:TypeArguments="x:Int32" Name="v_SchoolYearId" />
@@ -257,6 +269,10 @@
       <Variable x:TypeArguments="x:String" Name="v_Prenom" />
       <Variable x:TypeArguments="x:String" Name="v_Email" />
       <Variable x:TypeArguments="x:String" Name="v_ConnString" />
+      <Variable x:TypeArguments="x:Int32" Name="v_EducationTypeId" />
+      <Variable x:TypeArguments="x:String" Name="v_ParentEmail" />
+      <Variable x:TypeArguments="x:String" Name="v_ParentName" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_ParentDt" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtDossiers" />
       <Variable x:TypeArguments="x:Int32" Name="__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_" />
       <Variable x:TypeArguments="x:String" Name="__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
@@ -265,533 +281,336 @@
       <Variable x:TypeArguments="x:String" Name="_v_Prenom__as_System_Activities_OutArgument_System_String_" />
       <Variable x:TypeArguments="x:String" Name="_v_Email__as_System_Activities_OutArgument_System_String_" />
       <Variable x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-      <Variable x:TypeArguments="x:Int32" Name="v_EducationTypeId" />
-      <Variable x:TypeArguments="x:String" Name="v_ParentEmail" />
-      <Variable x:TypeArguments="x:String" Name="v_ParentName" />
-      <Variable x:TypeArguments="sd:DataTable" Name="v_ParentDt" />
     </Sequence.Variables>
-    <sap:WorkflowViewStateService.ViewState>
-      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-      </scg:Dictionary>
-    </sap:WorkflowViewStateService.ViewState>
-    <ui:ManualTrigger Result="{x:Null}" DisplayName="Manual Trigger" sap:VirtualizedContainerService.HintSize="654.4,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_22" />
-    <ui:LogMessage DisplayName="Log the start of the dossier verification process." sap:VirtualizedContainerService.HintSize="654.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_265" Level="Info" Message="[&quot;Début de la vérification des dossiers&quot;]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance);" DisplayName="Register the MySQL provider factory." sap:VirtualizedContainerService.HintSize="654.4,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_43" Language="CSharp">
+    <ui:ManualTrigger Result="{x:Null}" DisplayName="Manual Trigger" sap:VirtualizedContainerService.HintSize="792,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_2" />
+    <ui:LogMessage DisplayName="Log the start of the dossier verification process." sap:VirtualizedContainerService.HintSize="792,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_901319" Level="Info" Message="[&quot;Début de la vérification des dossiers&quot;]" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance);" DisplayName="Register the MySQL provider factory." sap:VirtualizedContainerService.HintSize="792,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="CSharp">
       <ui:InvokeCode.Arguments>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
-    <If Condition="[String.IsNullOrEmpty(in_ConnString)]" DisplayName="Set default connection string if not provided." sap:VirtualizedContainerService.HintSize="654.4,368" sap2010:WorkflowViewState.IdRef="If_1109">
+    <If Condition="[String.IsNullOrEmpty(in_ConnString)]" DisplayName="Set default connection string if not provided." sap:VirtualizedContainerService.HintSize="792,453.6" sap2010:WorkflowViewState.IdRef="If_492148">
       <If.Then>
-        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="483.2,140" sap2010:WorkflowViewState.IdRef="Sequence_780">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,80" sap2010:WorkflowViewState.IdRef="Sequence_779">
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770953">
+          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,225.6" sap2010:WorkflowViewState.IdRef="Sequence_770952">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_778">
-              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="886.4,1307.2" sap2010:WorkflowViewState.IdRef="Sequence_777">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="852.8,1247.2" sap2010:WorkflowViewState.IdRef="Sequence_776">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="819.2,1164" sap2010:WorkflowViewState.IdRef="Sequence_775">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="785.6,1080.8" sap2010:WorkflowViewState.IdRef="Sequence_774">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="752,997.6" sap2010:WorkflowViewState.IdRef="Sequence_773">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="718.4,914.4" sap2010:WorkflowViewState.IdRef="Sequence_772">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="684.8,831.2" sap2010:WorkflowViewState.IdRef="Sequence_771">
-                            <sap:WorkflowViewStateService.ViewState>
-                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              </scg:Dictionary>
-                            </sap:WorkflowViewStateService.ViewState>
-                            <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="651.2,748" sap2010:WorkflowViewState.IdRef="Sequence_770">
-                              <sap:WorkflowViewStateService.ViewState>
-                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                </scg:Dictionary>
-                              </sap:WorkflowViewStateService.ViewState>
-                              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="617.6,664.8" sap2010:WorkflowViewState.IdRef="Sequence_769">
-                                <sap:WorkflowViewStateService.ViewState>
-                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                  </scg:Dictionary>
-                                </sap:WorkflowViewStateService.ViewState>
-                                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="584,581.6" sap2010:WorkflowViewState.IdRef="Sequence_768">
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="550.4,498.4" sap2010:WorkflowViewState.IdRef="Sequence_767">
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="516.8,415.2" sap2010:WorkflowViewState.IdRef="Sequence_766">
-                                      <sap:WorkflowViewStateService.ViewState>
-                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                        </scg:Dictionary>
-                                      </sap:WorkflowViewStateService.ViewState>
-                                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="483.2,332" sap2010:WorkflowViewState.IdRef="Sequence_765">
-                                        <sap:WorkflowViewStateService.ViewState>
-                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                          </scg:Dictionary>
-                                        </sap:WorkflowViewStateService.ViewState>
-                                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,248.8" sap2010:WorkflowViewState.IdRef="Sequence_764">
-                                          <sap:WorkflowViewStateService.ViewState>
-                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                            </scg:Dictionary>
-                                          </sap:WorkflowViewStateService.ViewState>
-                                          <Assign DisplayName="Assign default connection string" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="Assign_1241">
-                                            <Assign.To>
-                                              <OutArgument x:TypeArguments="x:String">[in_ConnString]</OutArgument>
-                                            </Assign.To>
-                                            <Assign.Value>
-                                              <InArgument x:TypeArguments="x:String">["Server=127.0.0.1;Port=3307;Database=bpmn_db;Uid=root;Pwd=;"]</InArgument>
-                                            </Assign.Value>
-                                          </Assign>
-                                        </Sequence>
-                                      </Sequence>
-                                    </Sequence>
-                                  </Sequence>
-                                </Sequence>
-                              </Sequence>
-                            </Sequence>
-                          </Sequence>
-                        </Sequence>
-                      </Sequence>
-                    </Sequence>
-                  </Sequence>
-                </Sequence>
-              </Sequence>
-            </Sequence>
+            <Assign DisplayName="Assign default connection string to in_ConnString." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[in_ConnString]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["Server=127.0.0.1;Port=3307;Database=bpmn_db;Uid=root;Pwd=;"]</InArgument>
+              </Assign.Value>
+            </Assign>
           </Sequence>
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="483.2,89.6" sap2010:WorkflowViewState.IdRef="Sequence_781">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-        </Sequence>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770954" />
       </If.Else>
     </If>
-    <ui:DatabaseConnect DisplayName="Connect to the MySQL database." sap:VirtualizedContainerService.HintSize="654.4,92" sap2010:WorkflowViewState.IdRef="DatabaseConnect_22" ProviderName="MySql.Data.MySqlClient" ConnectionString="[in_ConnString]" DatabaseConnection="[v_DbConnection]" />
-    <ui:LogMessage DisplayName="Log that the database connection is open for verification." sap:VirtualizedContainerService.HintSize="654.4,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_266" Level="Info" Message="[&quot;Connexion DB ouverte pour vérification&quot;]" />
-    <If Condition="[in_DossierTable Is Nothing]" DisplayName="Load dossiers if not provided." sap:VirtualizedContainerService.HintSize="654.4,759.2" sap2010:WorkflowViewState.IdRef="If_1110">
+    <ui:DatabaseConnect DisplayName="Connect to the MySQL database." sap:VirtualizedContainerService.HintSize="792,92" sap2010:WorkflowViewState.IdRef="DatabaseConnect_2" ProviderName="MySql.Data.MySqlClient" ConnectionString="[in_ConnString]" DatabaseConnection="[v_DbConnection]" />
+    <ui:LogMessage DisplayName="Log that the database connection is open for verification." sap:VirtualizedContainerService.HintSize="792,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_901320" Level="Info" Message="[&quot;Connexion DB ouverte pour vérification&quot;]" />
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="SMTP_Credentials" CacheStrategy="None" DisplayName="Retrieve SMTP credentials from Orchestrator." sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[v_SmtpPassword]" Username="[v_SmtpUsername]" />
+    <If Condition="[in_DossierTable Is Nothing]" DisplayName="Load dossiers if not provided." sap:VirtualizedContainerService.HintSize="792,426.4" sap2010:WorkflowViewState.IdRef="If_492149">
       <If.Then>
-        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="584,531.2" sap2010:WorkflowViewState.IdRef="Sequence_786">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="550.4,471.2" sap2010:WorkflowViewState.IdRef="Sequence_785">
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770956">
+          <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,198.4" sap2010:WorkflowViewState.IdRef="Sequence_770955">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="516.8,388" sap2010:WorkflowViewState.IdRef="Sequence_784">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="483.2,304.8" sap2010:WorkflowViewState.IdRef="Sequence_783">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,221.6" sap2010:WorkflowViewState.IdRef="Sequence_782">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Query all registration dossiers from the database." ExistingDbConnection="[v_DbConnection]" sap:VirtualizedContainerService.HintSize="416,138.4" sap2010:WorkflowViewState.IdRef="ExecuteQuery_90" Sql="SELECT r.id AS reg_id, p.name_first_name AS prenom, p.email AS email, r.status, r.created_at, r.establishment_id, r.school_year_id, r.teaching_level_id, r.education_class_id, r.previous_school_year_average FROM registrations r LEFT JOIN pupils p ON r.pupil_id = p.id">
-                    <ui:ExecuteQuery.Parameters>
-                      <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                    </ui:ExecuteQuery.Parameters>
-                  </ui:ExecuteQuery>
-                </Sequence>
-              </Sequence>
-            </Sequence>
+            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Query all registration dossiers from the database." ExistingDbConnection="[v_DbConnection]" sap:VirtualizedContainerService.HintSize="416,138.4" sap2010:WorkflowViewState.IdRef="ExecuteQuery_6" Sql="SELECT r.id AS reg_id, p.name_first_name AS prenom, p.email AS email, r.status, r.created_at, r.establishment_id, r.school_year_id, r.teaching_level_id, r.education_class_id, r.previous_school_year_average FROM registrations r LEFT JOIN pupils p ON r.pupil_id = p.id">
+              <ui:ExecuteQuery.Parameters>
+                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+              </ui:ExecuteQuery.Parameters>
+            </ui:ExecuteQuery>
           </Sequence>
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="584,89.6" sap2010:WorkflowViewState.IdRef="Sequence_787">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-        </Sequence>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770957" />
       </If.Else>
     </If>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Iterate through each dossier in the input DataTable." sap:VirtualizedContainerService.HintSize="654.4,2521.6" sap2010:WorkflowViewState.IdRef="ForEachRow_44">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[in_DossierTable]" DisplayName="Iterate through each dossier in the input DataTable." sap:VirtualizedContainerService.HintSize="792,7652" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="652.8,2340" sap2010:WorkflowViewState.IdRef="Sequence_818">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:LogMessage DisplayName="Log the start of processing for the current dossier." sap:VirtualizedContainerService.HintSize="619.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_267" Level="Info" Message="[String.Format(&quot;Traitement du dossier avec reg_id: {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
-            <TryCatch DisplayName="Use a Try-Catch block to handle exceptions for each dossier." sap:VirtualizedContainerService.HintSize="619.2,2105.6" sap2010:WorkflowViewState.IdRef="TryCatch_22">
+          <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_770984">
+            <ui:LogMessage DisplayName="Log the start of processing for the current dossier." sap:VirtualizedContainerService.HintSize="556.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_901321" Level="Info" Message="[String.Format(&quot;Traitement du dossier avec reg_id: {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
+            <TryCatch DisplayName="Use a Try-Catch block to handle exceptions for each dossier." sap:VirtualizedContainerService.HintSize="556.8,7236" sap2010:WorkflowViewState.IdRef="TryCatch_2">
               <TryCatch.Try>
-                <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="617.6,1664.8" sap2010:WorkflowViewState.IdRef="Sequence_814">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="584,1604.8" sap2010:WorkflowViewState.IdRef="Sequence_813">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="550.4,1521.6" sap2010:WorkflowViewState.IdRef="Sequence_812">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="516.8,1438.4" sap2010:WorkflowViewState.IdRef="Sequence_811">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="483.2,1355.2" sap2010:WorkflowViewState.IdRef="Sequence_810">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="449.6,1272" sap2010:WorkflowViewState.IdRef="Sequence_809">
-                            <sap:WorkflowViewStateService.ViewState>
-                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              </scg:Dictionary>
-                            </sap:WorkflowViewStateService.ViewState>
-                            <Assign DisplayName="Assign dossier details from the current row to variables." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1242">
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770980">
+                  <Sequence DisplayName="Essayer" sap2010:WorkflowViewState.IdRef="Sequence_770979">
+                    <Assign DisplayName="Assign v_RegId from CurrentRow." sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[v_RegId]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Assign v_Prenom from CurrentRow." sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[v_Prenom]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[CurrentRow("prenom").ToString()]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Assign v_Email from CurrentRow." sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[v_Email]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[CurrentRow("email").ToString()]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Assign v_TeachingLevelId from CurrentRow." sap2010:WorkflowViewState.IdRef="Assign_5">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[v_TeachingLevelId]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("teaching_level_id"))]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Assign v_SchoolYearId from CurrentRow." sap2010:WorkflowViewState.IdRef="Assign_6">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[v_SchoolYearId]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("school_year_id"))]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_PupilInfoDt]" DisplayName="Query the database for pupil information based on the registration ID." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_7" Sql="[String.Format(&quot;SELECT r.pupil_id, p.date_of_birth, p.father_id, p.mother_id, tl.education_type_id, tl.title AS level_title FROM registrations r JOIN pupils p ON r.pupil_id = p.id JOIN teaching_levels tl ON r.teaching_level_id = tl.id WHERE r.id = {0}&quot;, v_RegId)]">
+                      <ui:ExecuteQuery.Parameters>
+                        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                      </ui:ExecuteQuery.Parameters>
+                    </ui:ExecuteQuery>
+                    <If Condition="[v_PupilInfoDt.Rows.Count &gt; 0]" DisplayName="Check if pupil information was found." sap2010:WorkflowViewState.IdRef="If_492154">
+                      <If.Then>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770976">
+                          <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_770975">
+                            <Assign DisplayName="Assign v_PupilId from v_PupilInfoDt." sap2010:WorkflowViewState.IdRef="Assign_7">
                               <Assign.To>
-                                <OutArgument x:TypeArguments="x:Int32">[v_RegId]</OutArgument>
+                                <OutArgument x:TypeArguments="x:Int32">[v_PupilId]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(v_PupilInfoDt.Rows(0)("pupil_id"))]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <Assign DisplayName="" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1243">
+                            <Assign DisplayName="Assign v_DateOfBirth from v_PupilInfoDt." sap2010:WorkflowViewState.IdRef="Assign_8">
                               <Assign.To>
-                                <OutArgument x:TypeArguments="x:String">[v_Prenom]</OutArgument>
+                                <OutArgument x:TypeArguments="s:DateTime">[v_DateOfBirth]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:String">[CurrentRow("prenom").ToString()]</InArgument>
+                                <InArgument x:TypeArguments="s:DateTime">[Convert.ToDateTime(v_PupilInfoDt.Rows(0)("date_of_birth"))]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <Assign DisplayName="" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1244">
+                            <Assign DisplayName="Assign v_TeachingLevelTitle from v_PupilInfoDt." sap2010:WorkflowViewState.IdRef="Assign_9">
                               <Assign.To>
-                                <OutArgument x:TypeArguments="x:String">[v_Email]</OutArgument>
+                                <OutArgument x:TypeArguments="x:String">[v_TeachingLevelTitle]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:String">[CurrentRow("email").ToString()]</InArgument>
+                                <InArgument x:TypeArguments="x:String">[v_PupilInfoDt.Rows(0)("level_title").ToString()]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <Assign DisplayName="" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1245">
+                            <Assign DisplayName="Assign v_EducationTypeId from v_PupilInfoDt." sap2010:WorkflowViewState.IdRef="Assign_10">
                               <Assign.To>
-                                <OutArgument x:TypeArguments="x:Int32">[v_TeachingLevelId]</OutArgument>
+                                <OutArgument x:TypeArguments="x:Int32">[v_EducationTypeId]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("teaching_level_id"))]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(v_PupilInfoDt.Rows(0)("education_type_id"))]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <Assign DisplayName="" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1246">
+                            <Assign DisplayName="Assign v_Age based on current date and date of birth." sap2010:WorkflowViewState.IdRef="Assign_11">
                               <Assign.To>
-                                <OutArgument x:TypeArguments="x:Int32">[v_SchoolYearId]</OutArgument>
+                                <OutArgument x:TypeArguments="x:Int32">[v_Age]</OutArgument>
                               </Assign.To>
                               <Assign.Value>
-                                <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(CurrentRow("school_year_id"))]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32">[Date.Today.Year - v_DateOfBirth.Year - If(Date.Today.DayOfYear &lt; v_DateOfBirth.DayOfYear, 1, 0)]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_PupilInfoDt]" DisplayName="Query the database for pupil information based on the registration ID." ExistingDbConnection="[v_DbConnection]" sap:VirtualizedContainerService.HintSize="416,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_91" Sql="[String.Format(&quot;SELECT r.pupil_id, p.date_of_birth, p.father_id, p.mother_id, tl.education_type_id, tl.title AS level_title FROM registrations r JOIN pupils p ON r.pupil_id = p.id JOIN teaching_levels tl ON r.teaching_level_id = tl.id WHERE r.id = {0}&quot;, v_RegId)]">
+                            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_DuplicateDt]" DisplayName="Query for duplicate registrations." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_8" Sql="[String.Format(&quot;SELECT COUNT(*) AS dup_count FROM registrations WHERE pupil_id = {0} AND school_year_id = {1} AND id &lt;&gt; {2}&quot;, v_PupilId, v_SchoolYearId, v_RegId)]">
                               <ui:ExecuteQuery.Parameters>
                                 <scg:Dictionary x:TypeArguments="x:String, Argument" />
                               </ui:ExecuteQuery.Parameters>
                             </ui:ExecuteQuery>
-                            <If Condition="[v_PupilInfoDt.Rows.Count &gt; 0]" DisplayName="Check if pupil information was found." sap:VirtualizedContainerService.HintSize="416,169.6" sap2010:WorkflowViewState.IdRef="If_1115">
+                            <ui:LogMessage DisplayName="Log the duplicate check result." sap2010:WorkflowViewState.IdRef="LogMessage_901322" Level="Info" Message="[String.Format(&quot;Vérification de doublon pour {0}: {1} trouvé(s).&quot;, v_Prenom, v_DuplicateDt.Rows(0)(&quot;dup_count&quot;))]" />
+                            <If Condition="[Convert.ToInt32(v_DuplicateDt.Rows(0)(&quot;dup_count&quot;)) &gt; 0]" DisplayName="Check if duplicate registration exists." sap2010:WorkflowViewState.IdRef="If_492150">
                               <If.Then>
-                                <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_804">
-                                  <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_803">
-                                    <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_802">
-                                      <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_801">
-                                        <Assign DisplayName="Extract pupil details from the query result." sap2010:WorkflowViewState.IdRef="Assign_1247">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="x:Int32">[v_PupilId]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(v_PupilInfoDt.Rows(0)("pupil_id"))]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <Assign DisplayName="" sap2010:WorkflowViewState.IdRef="Assign_1248">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="s:DateTime">[v_DateOfBirth]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="s:DateTime">[Convert.ToDateTime(v_PupilInfoDt.Rows(0)("date_of_birth"))]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <Assign DisplayName="" sap2010:WorkflowViewState.IdRef="Assign_1249">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="x:String">[v_TeachingLevelTitle]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="x:String">[v_PupilInfoDt.Rows(0)("level_title").ToString()]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <Assign DisplayName="Extract education type ID." sap2010:WorkflowViewState.IdRef="Assign_1250">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="x:Int32">[v_EducationTypeId]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="x:Int32">[Convert.ToInt32(v_PupilInfoDt.Rows(0)("education_type_id"))]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <Assign DisplayName="Calculate the pupil's age." sap2010:WorkflowViewState.IdRef="Assign_1251">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="x:Int32">[v_Age]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="x:Int32">[Date.Today.Year - v_DateOfBirth.Year - If(Date.Today.DayOfYear &lt; v_DateOfBirth.DayOfYear, 1, 0)]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_DuplicateDt]" DisplayName="Check for duplicate registrations." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_92" Sql="[String.Format(&quot;SELECT COUNT(*) AS dup_count FROM registrations WHERE pupil_id = {0} AND school_year_id = {1} AND id &lt;&gt; {2}&quot;, v_PupilId, v_SchoolYearId, v_RegId)]">
-                                          <ui:ExecuteQuery.Parameters>
-                                            <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                                          </ui:ExecuteQuery.Parameters>
-                                        </ui:ExecuteQuery>
-                                        <ui:LogMessage DisplayName="Log the duplicate check result." sap2010:WorkflowViewState.IdRef="LogMessage_268" Level="Info" Message="[String.Format(&quot;Vérification de doublon pour {0}: {1} trouvé(s).&quot;, v_Prenom, v_DuplicateDt.Rows(0)(&quot;dup_count&quot;))]" />
-                                        <If Condition="[Convert.ToInt32(v_DuplicateDt.Rows(0)(&quot;dup_count&quot;)) &gt; 0]" DisplayName="Check if duplicate registration exists." sap2010:WorkflowViewState.IdRef="If_1111">
-                                          <If.Then>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_788">
-                                              <Throw DisplayName="Throw BusinessRuleException for duplicate registration." Exception="[New UiPath.Core.BusinessRuleException(String.Format(&quot;DOUBLON détecté: l'élève {0} a déjà une inscription pour cette année scolaire (reg_id: {1})&quot;, v_Prenom, v_RegId))]" sap2010:WorkflowViewState.IdRef="Throw_3" />
-                                            </Sequence>
-                                          </If.Then>
-                                          <If.Else>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_789">
-                                              <ui:LogMessage DisplayName="Log that no duplicate was found." sap2010:WorkflowViewState.IdRef="LogMessage_269" Level="Info" Message="[String.Format(&quot;Pas de doublon pour {0}.&quot;, v_Prenom)]" />
-                                            </Sequence>
-                                          </If.Else>
-                                        </If>
-                                        <If Condition="[v_EducationTypeId = 1 AndAlso v_Age &gt;= 3 AndAlso v_Age &lt;= 6 OrElse v_EducationTypeId = 2 AndAlso v_Age &gt;= 6 AndAlso v_Age &lt;= 13 OrElse v_EducationTypeId = 3 AndAlso v_Age &gt;= 12 AndAlso v_Age &lt;= 16 OrElse v_EducationTypeId = 4 AndAlso v_Age &gt;= 15 AndAlso v_Age &lt;= 21]" DisplayName="Check if the pupil's age is coherent (between 6 and 20)." sap2010:WorkflowViewState.IdRef="If_1112">
-                                          <If.Then>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_792">
-                                              <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_791">
-                                                <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_790">
-                                                  <ui:LogMessage DisplayName="Log that the age is coherent." sap2010:WorkflowViewState.IdRef="LogMessage_270" Level="Info" Message="[String.Format(&quot;Cohérence de l'âge pour {0} ({1} ans) : OK&quot;, v_Prenom, v_Age)]" />
-                                                </Sequence>
-                                              </Sequence>
-                                            </Sequence>
-                                          </If.Then>
-                                          <If.Else>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_795">
-                                              <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_794">
-                                                <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_793">
-                                                  <ui:LogMessage DisplayName="Log a warning for age incoherence." sap2010:WorkflowViewState.IdRef="LogMessage_271" Level="Warn" Message="[String.Format(&quot;Incohérence de l'âge pour {0} ({1} ans).&quot;, v_Prenom, v_Age)]" />
-                                                  <Throw DisplayName="Throw BusinessRuleException for age incoherence." Exception="[New UiPath.Core.BusinessRuleException(String.Format(&quot;INCOHÉRENCE ÂGE/NIVEAU: {0} a {1} ans, incompatible avec le type d'éducation {2}&quot;, v_Prenom, v_Age, v_EducationTypeId))]" sap2010:WorkflowViewState.IdRef="Throw_2" />
-                                                </Sequence>
-                                              </Sequence>
-                                            </Sequence>
-                                          </If.Else>
-                                        </If>
-                                        <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_DocsDt]" DisplayName="Query existing registration documents." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_93" Sql="[String.Format(&quot;SELECT doc_type FROM registration_documents WHERE registration_id = {0}&quot;, v_RegId)]">
-                                          <ui:ExecuteQuery.Parameters>
-                                            <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                                          </ui:ExecuteQuery.Parameters>
-                                        </ui:ExecuteQuery>
-                                        <Assign DisplayName="Initialize the list of missing documents." sap2010:WorkflowViewState.IdRef="Assign_1252">
-                                          <Assign.To>
-                                            <OutArgument x:TypeArguments="scg:List(x:String)">[v_MissingDocs]</OutArgument>
-                                          </Assign.To>
-                                          <Assign.Value>
-                                            <InArgument x:TypeArguments="scg:List(x:String)">[New List(Of String)(New String() {"TRIMESTRE_1", "TRIMESTRE_2", "TRIMESTRE_3"})]</InArgument>
-                                          </Assign.Value>
-                                        </Assign>
-                                        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[v_DocsDt]" DisplayName="Iterate through the missing documents DataTable to build a list." sap2010:WorkflowViewState.IdRef="ForEachRow_43">
-                                          <ui:ForEachRow.Body>
-                                            <ActivityAction x:TypeArguments="sd:DataRow">
-                                              <ActivityAction.Argument>
-                                                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
-                                              </ActivityAction.Argument>
-                                              <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_796">
-                                                <ui:InvokeCode ContinueOnError="{x:Null}" Code="missingDocs.Remove(docRow[&quot;doc_type&quot;].ToString());" DisplayName="Remove existing document from missing list." sap2010:WorkflowViewState.IdRef="InvokeCode_44" Language="CSharp">
-                                                  <ui:InvokeCode.Arguments>
-                                                    <InArgument x:TypeArguments="sd:DataRow" x:Key="docRow">[CurrentRow]</InArgument>
-                                                    <InOutArgument x:TypeArguments="scg:List(x:String)" x:Key="missingDocs">[v_MissingDocs]</InOutArgument>
-                                                  </ui:InvokeCode.Arguments>
-                                                </ui:InvokeCode>
-                                              </Sequence>
-                                            </ActivityAction>
-                                          </ui:ForEachRow.Body>
-                                        </ui:ForEachRow>
-                                        <If Condition="[v_MissingDocs.Count &gt; 0]" DisplayName="Check if there are any missing documents." sap2010:WorkflowViewState.IdRef="If_1114">
-                                          <If.Then>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_799">
-                                              <ui:LogMessage DisplayName="Log the list of missing documents." sap2010:WorkflowViewState.IdRef="LogMessage_272" Level="Info" Message="[String.Format(&quot;Documents manquants pour {0}: {1}&quot;, v_Prenom, String.Join(&quot;, &quot;, v_MissingDocs))]" />
-                                              <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_ParentDt]" DisplayName="Query parent email with fallback." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_94" Sql="[String.Format(&quot;SELECT COALESCE(f.email, m.email, p.email) AS parent_email, COALESCE(CONCAT(f.first_name, ' ', f.last_name), CONCAT(m.first_name, ' ', m.last_name), p.name_first_name) AS parent_name FROM pupils p LEFT JOIN relatives f ON p.father_id = f.id LEFT JOIN relatives m ON p.mother_id = m.id WHERE p.id = {0}&quot;, v_PupilId)]">
-                                                <ui:ExecuteQuery.Parameters>
-                                                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                                                </ui:ExecuteQuery.Parameters>
-                                              </ui:ExecuteQuery>
-                                              <If Condition="[((((((v_ParentDt.Rows.Count &gt; 0 AndAlso ((((((Not ((((((String.IsNullOrEmpty(v_ParentDt.Rows(0)(&quot;parent_email&quot;).ToString())))))))))))))))))))]" DisplayName="Check if parent email was found." sap2010:WorkflowViewState.IdRef="If_1113">
-                                                <If.Then>
-                                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_797">
-                                                    <Assign DisplayName="Extract parent email." sap2010:WorkflowViewState.IdRef="Assign_1253">
-                                                      <Assign.To>
-                                                        <OutArgument x:TypeArguments="x:String">[v_ParentEmail]</OutArgument>
-                                                      </Assign.To>
-                                                      <Assign.Value>
-                                                        <InArgument x:TypeArguments="x:String">[v_ParentDt.Rows(0)("parent_email").ToString()]</InArgument>
-                                                      </Assign.Value>
-                                                    </Assign>
-                                                    <Assign DisplayName="Extract parent name." sap2010:WorkflowViewState.IdRef="Assign_1254">
-                                                      <Assign.To>
-                                                        <OutArgument x:TypeArguments="x:String">[v_ParentName]</OutArgument>
-                                                      </Assign.To>
-                                                      <Assign.Value>
-                                                        <InArgument x:TypeArguments="x:String">[v_ParentDt.Rows(0)("parent_name").ToString()]</InArgument>
-                                                      </Assign.Value>
-                                                    </Assign>
-                                                    <ui:LogMessage DisplayName="Log parent email found." sap2010:WorkflowViewState.IdRef="LogMessage_273" Level="Info" Message="[String.Format(&quot;Email parent trouvé: {0} pour {1}&quot;, v_ParentEmail, v_Prenom)]" />
-                                                  </Sequence>
-                                                </If.Then>
-                                                <If.Else>
-                                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_798">
-                                                    <ui:LogMessage DisplayName="Log warning for no parent email." sap2010:WorkflowViewState.IdRef="LogMessage_274" Level="Warn" Message="[String.Format(&quot;Aucun email parent trouvé pour le dossier de {0} (reg_id: {1})&quot;, v_Prenom, v_RegId)]" />
-                                                  </Sequence>
-                                                </If.Else>
-                                              </If>
-                                              <ui:LogMessage DisplayName="Log the content of the notification email for missing documents." sap2010:WorkflowViewState.IdRef="LogMessage_275" Level="Info" Message="[String.Format(&quot;--- EMAIL SIMULATION ---&quot; &amp; Environment.NewLine &amp; &quot;To: {0}&quot; &amp; Environment.NewLine &amp; &quot;Subject: Documents manquants pour l'inscription de {1}&quot; &amp; Environment.NewLine &amp; &quot;Body: Bonjour, nous vous informons qu'il manque les documents suivants pour finaliser l'inscription de {1}: {2}. Cordialement.&quot;, v_Email, v_Prenom, String.Join(&quot;, &quot;, v_MissingDocs))]" />
-                                            </Sequence>
-                                          </If.Then>
-                                          <If.Else>
-                                            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_800">
-                                              <ui:LogMessage DisplayName="Log that all documents are present." sap2010:WorkflowViewState.IdRef="LogMessage_276" Level="Info" Message="[String.Format(&quot;Tous les documents sont présents pour {0}.&quot;, v_Prenom)]" />
-                                            </Sequence>
-                                          </If.Else>
-                                        </If>
-                                      </Sequence>
-                                    </Sequence>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770959">
+                                  <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_770958">
+                                    <Throw DisplayName="Throw BusinessRuleException for duplicate registration." Exception="[New UiPath.Core.BusinessRuleException(String.Format(&quot;DOUBLON détecté: l'élève {0} a déjà une inscription pour cette année scolaire (reg_id: {1})&quot;, v_Prenom, v_RegId))]" sap2010:WorkflowViewState.IdRef="Throw_3" />
                                   </Sequence>
                                 </Sequence>
                               </If.Then>
                               <If.Else>
-                                <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_808">
-                                  <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_807">
-                                    <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_806">
-                                      <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_805">
-                                        <ui:LogMessage DisplayName="Log a warning if no pupil information was found for the dossier." sap2010:WorkflowViewState.IdRef="LogMessage_277" Level="Warn" Message="[String.Format(&quot;Aucune information d'élève trouvée pour le dossier reg_id: {0}&quot;, v_RegId)]" />
-                                      </Sequence>
-                                    </Sequence>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770961">
+                                  <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_770960">
+                                    <ui:LogMessage DisplayName="Log that no duplicate was found." sap2010:WorkflowViewState.IdRef="LogMessage_901323" Level="Info" Message="[String.Format(&quot;Pas de doublon pour {0}.&quot;, v_Prenom)]" />
+                                  </Sequence>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <If Condition="[v_EducationTypeId = 1 AndAlso v_Age &gt;= 3 AndAlso v_Age &lt;= 6 OrElse v_EducationTypeId = 2 AndAlso v_Age &gt;= 6 AndAlso v_Age &lt;= 13 OrElse v_EducationTypeId = 3 AndAlso v_Age &gt;= 12 AndAlso v_Age &lt;= 16 OrElse v_EducationTypeId = 4 AndAlso v_Age &gt;= 15 AndAlso v_Age &lt;= 21]" DisplayName="Check if the pupil's age is coherent (between 6 and 20)." sap2010:WorkflowViewState.IdRef="If_492151">
+                              <If.Then>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770963">
+                                  <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_770962">
+                                    <ui:LogMessage DisplayName="Log that the age is coherent." sap2010:WorkflowViewState.IdRef="LogMessage_901324" Level="Info" Message="[String.Format(&quot;Cohérence de l'âge pour {0} ({1} ans) : OK&quot;, v_Prenom, v_Age)]" />
+                                  </Sequence>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770965">
+                                  <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_770964">
+                                    <ui:LogMessage DisplayName="Log a warning for age incoherence." sap2010:WorkflowViewState.IdRef="LogMessage_901325" Level="Warn" Message="[String.Format(&quot;Incohérence de l'âge pour {0} ({1} ans).&quot;, v_Prenom, v_Age)]" />
+                                    <Throw DisplayName="Throw BusinessRuleException for age incoherence." Exception="[New UiPath.Core.BusinessRuleException(String.Format(&quot;INCOHÉRENCE ÂGE/NIVEAU: {0} a {1} ans, incompatible avec le type d'éducation {2}&quot;, v_Prenom, v_Age, v_EducationTypeId))]" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                                  </Sequence>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_DocsDt]" DisplayName="Query existing registration documents." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_9" Sql="[String.Format(&quot;SELECT doc_type FROM registration_documents WHERE registration_id = {0}&quot;, v_RegId)]">
+                              <ui:ExecuteQuery.Parameters>
+                                <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                              </ui:ExecuteQuery.Parameters>
+                            </ui:ExecuteQuery>
+                            <Assign DisplayName="Assign initial list of missing documents." sap2010:WorkflowViewState.IdRef="Assign_12">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="scg:List(x:String)">[v_MissingDocs]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="scg:List(x:String)">[New List(Of String)(New String() {"TRIMESTRE_1", "TRIMESTRE_2", "TRIMESTRE_3"})]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[v_DocsDt]" DisplayName="Iterate through the existing documents to remove them from the missing list." sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                              <ui:ForEachRow.Body>
+                                <ActivityAction x:TypeArguments="sd:DataRow">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_770966">
+                                    <ui:InvokeCode ContinueOnError="{x:Null}" Code="missingDocs.Remove(docRow[&quot;doc_type&quot;].ToString());" DisplayName="Remove existing document from missing list." sap2010:WorkflowViewState.IdRef="InvokeCode_4" Language="CSharp">
+                                      <ui:InvokeCode.Arguments>
+                                        <InArgument x:TypeArguments="sd:DataRow" x:Key="docRow">[CurrentRow]</InArgument>
+                                        <InOutArgument x:TypeArguments="scg:List(x:String)" x:Key="missingDocs">[v_MissingDocs]</InOutArgument>
+                                      </ui:InvokeCode.Arguments>
+                                    </ui:InvokeCode>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:ForEachRow.Body>
+                            </ui:ForEachRow>
+                            <If Condition="[v_MissingDocs.Count &gt; 0]" DisplayName="Check if there are any missing documents." sap2010:WorkflowViewState.IdRef="If_492153">
+                              <If.Then>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770972">
+                                  <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_770971">
+                                    <ui:LogMessage DisplayName="Log the list of missing documents." sap2010:WorkflowViewState.IdRef="LogMessage_901326" Level="Info" Message="[String.Format(&quot;Documents manquants pour {0}: {1}&quot;, v_Prenom, String.Join(&quot;, &quot;, v_MissingDocs))]" />
+                                    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_ParentDt]" DisplayName="Query parent email with fallback." ExistingDbConnection="[v_DbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_10" Sql="[String.Format(&quot;SELECT COALESCE(f.email, m.email, p.email) AS parent_email, COALESCE(CONCAT(f.first_name, ' ', f.last_name), CONCAT(m.first_name, ' ', m.last_name), p.name_first_name) AS parent_name FROM pupils p LEFT JOIN relatives f ON p.father_id = f.id LEFT JOIN relatives m ON p.mother_id = m.id WHERE p.id = {0}&quot;, v_PupilId)]">
+                                      <ui:ExecuteQuery.Parameters>
+                                        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                                      </ui:ExecuteQuery.Parameters>
+                                    </ui:ExecuteQuery>
+                                    <If Condition="[(v_ParentDt.Rows.Count &gt; 0 AndAlso (Not (String.IsNullOrEmpty(v_ParentDt.Rows(0)(&quot;parent_email&quot;).ToString()))))]" DisplayName="Check if parent email was found." sap2010:WorkflowViewState.IdRef="If_492152">
+                                      <If.Then>
+                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770968">
+                                          <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_770967">
+                                            <Assign DisplayName="Assign v_ParentEmail from v_ParentDt." sap2010:WorkflowViewState.IdRef="Assign_13">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:String">[v_ParentEmail]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:String">[v_ParentDt.Rows(0)("parent_email").ToString()]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <Assign DisplayName="Assign v_ParentName from v_ParentDt." sap2010:WorkflowViewState.IdRef="Assign_14">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:String">[v_ParentName]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:String">[v_ParentDt.Rows(0)("parent_name").ToString()]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <ui:LogMessage DisplayName="Log parent email found." sap2010:WorkflowViewState.IdRef="LogMessage_901327" Level="Info" Message="[String.Format(&quot;Email parent trouvé: {0} pour {1}&quot;, v_ParentEmail, v_Prenom)]" />
+                                            <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Action="Forward" AttachmentInputMode="Existing" Body="[String.Format(&quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;Bonjour {0},&lt;/p&gt;&lt;p&gt;Nous vous informons que le dossier d'inscription de &lt;strong&gt;{1}&lt;/strong&gt; est &lt;strong&gt;incomplet&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Documents manquants :&lt;/p&gt;&lt;ul&gt;&lt;li&gt;{2}&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Merci de nous faire parvenir les documents manquants dans les plus brefs délais.&lt;/p&gt;&lt;p&gt;Cordialement,&lt;br/&gt;Le Service des Inscriptions&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;, v_ParentName, v_Prenom, String.Join(&quot;&lt;/li&gt;&lt;li&gt;&quot;, v_MissingDocs))]" ConnectionMode="LegacyConfiguration" DisplayName="Send SMTP Mail Message with missing documents details." Email="[v_SmtpUsername]" EnableSSL="True" From="inscription@ecole.tn" sap2010:WorkflowViewState.IdRef="SendMail_3" IgnoreCRL="False" IsBodyHtml="True" Port="587" SecureConnection="StartTls" SecurePassword="[v_SmtpPassword]" Server="smtp.gmail.com" Subject="[String.Format(&quot;Documents manquants pour l'inscription de {0}&quot;, v_Prenom)]" To="[v_ParentEmail]" UseISConnection="False" UseRichTextEditor="True">
+                                              <ui:SendMail.AttachmentsBackup>
+                                                <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="{x:Null}">
+                                                  <usau:BackupSlot.BackupValues>
+                                                    <scg:Dictionary x:TypeArguments="umame:AttachmentInputMode, scg:List(x:Object)" />
+                                                  </usau:BackupSlot.BackupValues>
+                                                </usau:BackupSlot>
+                                              </ui:SendMail.AttachmentsBackup>
+                                              <ui:SendMail.ConnectionDetailsBackupSlot>
+                                                <usau:BackupSlot x:TypeArguments="umae:ConnectionDetails" StoredValue="{x:Null}">
+                                                  <usau:BackupSlot.BackupValues>
+                                                    <scg:Dictionary x:TypeArguments="umae:ConnectionDetails, scg:List(x:Object)" />
+                                                  </usau:BackupSlot.BackupValues>
+                                                </usau:BackupSlot>
+                                              </ui:SendMail.ConnectionDetailsBackupSlot>
+                                              <ui:SendMail.Files>
+                                                <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                                                  <x:Null />
+                                                </scg:List>
+                                              </ui:SendMail.Files>
+                                            </ui:SendMail>
+                                            <ui:LogMessage DisplayName="Log that the email was sent." sap2010:WorkflowViewState.IdRef="LogMessage_901328" Level="Info" Message="[String.Format(&quot;Email envoyé à {0} pour {1}&quot;, v_ParentEmail, v_Prenom)]" />
+                                          </Sequence>
+                                        </Sequence>
+                                      </If.Then>
+                                      <If.Else>
+                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770970">
+                                          <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_770969">
+                                            <ui:LogMessage DisplayName="Log warning for no parent email." sap2010:WorkflowViewState.IdRef="LogMessage_901329" Level="Warn" Message="[String.Format(&quot;Aucun email parent trouvé pour le dossier de {0} (reg_id: {1})&quot;, v_Prenom, v_RegId)]" />
+                                          </Sequence>
+                                        </Sequence>
+                                      </If.Else>
+                                    </If>
+                                  </Sequence>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770974">
+                                  <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_770973">
+                                    <ui:LogMessage DisplayName="Log that all documents are present." sap2010:WorkflowViewState.IdRef="LogMessage_901330" Level="Info" Message="[String.Format(&quot;Tous les documents sont présents pour {0}.&quot;, v_Prenom)]" />
                                   </Sequence>
                                 </Sequence>
                               </If.Else>
                             </If>
                           </Sequence>
                         </Sequence>
-                      </Sequence>
-                    </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770978">
+                          <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_770977">
+                            <ui:LogMessage DisplayName="Log a warning if no pupil information was found for the dossier." sap2010:WorkflowViewState.IdRef="LogMessage_901331" Level="Warn" Message="[String.Format(&quot;Aucune information d'élève trouvée pour le dossier reg_id: {0}&quot;, v_RegId)]" />
+                          </Sequence>
+                        </Sequence>
+                      </If.Else>
+                    </If>
                   </Sequence>
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
-                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_26">
+                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_4">
                   <ActivityAction x:TypeArguments="s:Exception">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="617.6,89.6" sap2010:WorkflowViewState.IdRef="Sequence_815">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                    </Sequence>
-                  </ActivityAction>
-                </Catch>
-                <Catch x:TypeArguments="ui:BusinessRuleException" sap2010:WorkflowViewState.IdRef="Catch`1_27">
-                  <ActivityAction x:TypeArguments="ui:BusinessRuleException">
-                    <ActivityAction.Argument>
-                      <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="businessEx" />
-                    </ActivityAction.Argument>
-                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="617.6,80" sap2010:WorkflowViewState.IdRef="Sequence_816">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:LogMessage DisplayName="Log business rule exception" sap2010:WorkflowViewState.IdRef="LogMessage_278" Level="Warn" Message="[String.Format(&quot;Erreur métier pour dossier {0} ({1}): {2}&quot;, v_RegId, v_Prenom, businessEx.Message)]" />
-                    </Sequence>
+                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770981" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
               <TryCatch.Finally>
-                <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="617.6,80" sap2010:WorkflowViewState.IdRef="Sequence_817">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                  <ui:LogMessage DisplayName="Log end of dossier processing" sap2010:WorkflowViewState.IdRef="LogMessage_279" Level="Info" Message="[String.Format(&quot;Fin traitement dossier {0}&quot;, v_RegId)]" />
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_770983">
+                  <Sequence DisplayName="Enfin" sap2010:WorkflowViewState.IdRef="Sequence_770982">
+                    <ui:LogMessage DisplayName="Log end of dossier processing" sap2010:WorkflowViewState.IdRef="LogMessage_901332" Level="Info" Message="[String.Format(&quot;Fin traitement dossier {0}&quot;, v_RegId)]" />
+                  </Sequence>
                 </Sequence>
               </TryCatch.Finally>
             </TryCatch>
@@ -799,7 +618,7 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <ui:DatabaseDisconnect DatabaseConnection="[v_DbConnection]" DisplayName="Disconnect from the database." sap:VirtualizedContainerService.HintSize="654.4,56.8" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_22" />
-    <ui:LogMessage DisplayName="Log the end of the entire verification process." sap:VirtualizedContainerService.HintSize="654.4,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_280" Level="Info" Message="[&quot;Vérification terminée&quot;]" />
+    <ui:DatabaseDisconnect DatabaseConnection="[v_DbConnection]" DisplayName="Disconnect from the database." sap:VirtualizedContainerService.HintSize="792,56.8" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_2" />
+    <ui:LogMessage DisplayName="Log the end of the entire verification process." sap:VirtualizedContainerService.HintSize="792,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_901333" Level="Info" Message="[&quot;Vérification terminée&quot;]" />
   </Sequence>
 </Activity>
