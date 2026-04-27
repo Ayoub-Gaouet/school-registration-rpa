@@ -87,6 +87,35 @@
         },
         "required": []
       }
+    },
+    {
+      "filePath": "Workflow3_AffectationClasse.xaml",
+      "uniqueId": "46b5a5ad-8b0f-44a8-8ef4-3ddb99dc0653",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "UiPathEventConnector": {
+            "type": "string"
+          },
+          "UiPathEvent": {
+            "type": "string"
+          },
+          "UiPathEventObjectType": {
+            "type": "string"
+          },
+          "UiPathEventObjectId": {
+            "type": "string"
+          },
+          "UiPathAdditionalEventData": {
+            "type": "string"
+          },
+          "ConnectionString": {
+            "type": "string"
+          }
+        },
+        "required": []
+      }
     }
   ]
 }

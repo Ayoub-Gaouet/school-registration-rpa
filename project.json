@@ -64,6 +64,12 @@
       "uniqueId": "8c9ee490-04e1-48d8-b438-35e296ed52fd",
       "input": [],
       "output": []
+    },
+    {
+      "filePath": "Workflow3_AffectationClasse.xaml",
+      "uniqueId": "46b5a5ad-8b0f-44a8-8ef4-3ddb99dc0653",
+      "input": [],
+      "output": []
     }
   ],
   "isTemplate": false,
