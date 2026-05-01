@@ -25,6 +25,20 @@
           }
         },
         "required": []
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "out_ConnString": {
+            "type": "string"
+          },
+          "out_DossierTable": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
       }
     },
     {
@@ -176,8 +190,14 @@
           "UiPathAdditionalEventData": {
             "type": "string"
           },
-          "ConnectionString": {
+          "in_ConnString": {
             "type": "string"
+          },
+          "in_AssignedRegistrations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
           }
         },
         "required": []

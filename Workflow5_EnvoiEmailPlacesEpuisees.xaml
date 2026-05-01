@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Workflow4_EnvoiEmailConfirmation" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Workflow5_EnvoiEmailPlacesEpuisees" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="UiPathEventConnector" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEvent" Type="InArgument(x:String)" />
@@ -6,33 +6,33 @@
     <x:Property Name="UiPathEventObjectId" Type="InArgument(x:String)" />
     <x:Property Name="UiPathAdditionalEventData" Type="InArgument(x:String)" />
     <x:Property Name="in_ConnString" Type="InArgument(x:String)" />
-    <x:Property Name="in_AssignedRegistrations" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_NoAvailablePlaceRegistrations" Type="InArgument(sd:DataTable)" />
   </x:Members>
-  <this:Workflow4_EnvoiEmailConfirmation.UiPathEventConnector>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventConnector>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.UiPathEventConnector>
-  <this:Workflow4_EnvoiEmailConfirmation.UiPathEvent>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventConnector>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEvent>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.UiPathEvent>
-  <this:Workflow4_EnvoiEmailConfirmation.UiPathEventObjectType>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEvent>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventObjectType>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.UiPathEventObjectType>
-  <this:Workflow4_EnvoiEmailConfirmation.UiPathEventObjectId>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventObjectType>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventObjectId>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.UiPathEventObjectId>
-  <this:Workflow4_EnvoiEmailConfirmation.UiPathAdditionalEventData>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathEventObjectId>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathAdditionalEventData>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.UiPathAdditionalEventData>
-  <this:Workflow4_EnvoiEmailConfirmation.in_ConnString>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.UiPathAdditionalEventData>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.in_ConnString>
     <InArgument x:TypeArguments="x:String" />
-  </this:Workflow4_EnvoiEmailConfirmation.in_ConnString>
-  <this:Workflow4_EnvoiEmailConfirmation.in_AssignedRegistrations>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.in_ConnString>
+  <this:Workflow5_EnvoiEmailPlacesEpuisees.in_NoAvailablePlaceRegistrations>
     <InArgument x:TypeArguments="sd:DataTable" />
-  </this:Workflow4_EnvoiEmailConfirmation.in_AssignedRegistrations>
+  </this:Workflow5_EnvoiEmailPlacesEpuisees.in_NoAvailablePlaceRegistrations>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap2010:WorkflowViewState.IdRef>Workflow4_EnvoiEmailConfirmation_1</sap2010:WorkflowViewState.IdRef>
+  <sap2010:WorkflowViewState.IdRef>Workflow5_EnvoiEmailPlacesEpuisees_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -292,13 +292,13 @@
         <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Début du workflow d'envoi des emails de confirmation." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Début Workflow 4 : envoi email de confirmation&quot;]" />
-    <Assign DisplayName="Utiliser in_AssignedRegistrations comme source d'itération." sap2010:WorkflowViewState.IdRef="Assign_W4_Source">
+    <ui:LogMessage DisplayName="Début Workflow 5 : envoi email places épuisées." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Début Workflow 5 : envoi email places épuisées&quot;]" />
+    <Assign DisplayName="Utiliser in_NoAvailablePlaceRegistrations comme source d'itération." sap2010:WorkflowViewState.IdRef="Assign_W5_Source">
       <Assign.To>
         <OutArgument x:TypeArguments="sd:DataTable">[v_dtInscriptions]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="sd:DataTable">[in_AssignedRegistrations]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable">[in_NoAvailablePlaceRegistrations]</InArgument>
       </Assign.Value>
     </Assign>
     <ui:LogMessage DisplayName="Log le nombre d'inscriptions à notifier." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[String.Format(&quot;Nombre d'inscriptions à notifier : {0}&quot;, v_dtInscriptions.Rows.Count)]" />
@@ -338,8 +338,8 @@
                       <InArgument x:TypeArguments="x:String">[CurrentRow("prenom").ToString()]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:LogMessage DisplayName="Log envoi confirmation pour reg_id." sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Envoi confirmation pour reg_id = {0} ({1})&quot;, v_RegId, v_Prenom)]" />
-                  <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_dtParentEmail]" DisplayName="Récupère parent_email, parent_name, student_name, class_name pour reg_id." ExistingDbConnection="[v_dbConnection]" sap:VirtualizedContainerService.HintSize="451.2,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_8" Sql="SELECT COALESCE(f.email, m.email, p.email) AS parent_email, COALESCE(CONCAT(f.first_name, ' ', f.last_name), CONCAT(m.first_name, ' ', m.last_name), p.name_first_name) AS parent_name, p.name_first_name AS student_name, ec.name AS class_name FROM registrations r JOIN pupils p ON r.pupil_id = p.id JOIN education_classes ec ON r.education_class_id = ec.id LEFT JOIN relatives f ON p.father_id = f.id LEFT JOIN relatives m ON p.mother_id = m.id WHERE r.id = @regId AND r.status = 2">
+                  <ui:LogMessage DisplayName="Log envoi places épuisées pour reg_id." sap:VirtualizedContainerService.HintSize="451.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Envoi places épuisées pour reg_id = {0} ({1})&quot;, v_RegId, v_Prenom)]" />
+                  <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[v_dtParentEmail]" DisplayName="Récupère parent_email, parent_name, student_name, level_title pour reg_id." ExistingDbConnection="[v_dbConnection]" sap:VirtualizedContainerService.HintSize="451.2,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_8" Sql="SELECT COALESCE(f.email, m.email, p.email) AS parent_email, COALESCE(CONCAT(f.first_name, ' ', f.last_name), CONCAT(m.first_name, ' ', m.last_name), p.name_first_name) AS parent_name, p.name_first_name AS student_name, tl.title AS level_title FROM registrations r JOIN pupils p ON r.pupil_id = p.id JOIN teaching_levels tl ON r.teaching_level_id = tl.id LEFT JOIN relatives f ON p.father_id = f.id LEFT JOIN relatives m ON p.mother_id = m.id WHERE r.id = @regId AND r.status = 3">
                     <ui:ExecuteQuery.Parameters>
                       <scg:Dictionary x:TypeArguments="x:String, Argument">
                         <InArgument x:TypeArguments="x:Int32" x:Key="@regId">[v_RegId]</InArgument>
@@ -354,7 +354,7 @@
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Action="Forward" AttachmentInputMode="FilePaths" Body="[String.Format(&quot;Bonjour,{0}{0}Nous vous informons que l'inscription de votre enfant {1} a été validée avec succès.{0}{0}Il/Elle a été affecté(e) à la classe : {2}.{0}{0}Cordialement,{0}Administration scolaire&quot;, Environment.NewLine, v_dtParentEmail.Rows(0)(&quot;student_name&quot;).ToString(), v_dtParentEmail.Rows(0)(&quot;class_name&quot;).ToString())]" ConnectionMode="LegacyConfiguration" DisplayName="Envoie un email de confirmation au parent via SMTP Gmail." Email="[v_SmtpUsername]" EnableSSL="True" From="inscription@ecole.tn" sap:VirtualizedContainerService.HintSize="416,430.4" sap2010:WorkflowViewState.IdRef="SendMail_3" IgnoreCRL="False" IsBodyHtml="False" Port="587" SecureConnection="StartTls" SecurePassword="[v_SmtpPassword]" Server="smtp.gmail.com" Subject="[&quot;Confirmation d'inscription scolaire&quot;]" To="[v_dtParentEmail.Rows(0)(&quot;parent_email&quot;).ToString()]" UseISConnection="False" UseRichTextEditor="True">
+                        <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Action="Forward" AttachmentInputMode="FilePaths" Body="[String.Format(&quot;Bonjour,{0}{0}Nous vous informons que le dossier d'inscription de votre enfant {1} a été vérifié avec succès.{0}{0}Cependant, aucune place n'est actuellement disponible pour le niveau demandé : {2}.{0}{0}Votre demande reste en attente jusqu'à la disponibilité d'une place.{0}{0}Cordialement,{0}Administration scolaire&quot;, Environment.NewLine, v_dtParentEmail.Rows(0)(&quot;student_name&quot;).ToString(), v_dtParentEmail.Rows(0)(&quot;level_title&quot;).ToString())]" ConnectionMode="LegacyConfiguration" DisplayName="Envoie un email d'information places épuisées au parent via SMTP Gmail." Email="[v_SmtpUsername]" EnableSSL="True" From="inscription@ecole.tn" sap:VirtualizedContainerService.HintSize="416,430.4" sap2010:WorkflowViewState.IdRef="SendMail_3" IgnoreCRL="False" IsBodyHtml="False" Port="587" SecureConnection="StartTls" SecurePassword="[v_SmtpPassword]" Server="smtp.gmail.com" Subject="[&quot;Information concernant l'inscription scolaire&quot;]" To="[v_dtParentEmail.Rows(0)(&quot;parent_email&quot;).ToString()]" UseISConnection="False" UseRichTextEditor="True">
                           <ui:SendMail.AttachmentsBackup>
                             <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="FilePaths">
                               <usau:BackupSlot.BackupValues>
@@ -375,14 +375,14 @@
                             </scg:List>
                           </ui:SendMail.Files>
                         </ui:SendMail>
-                        <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Marque la registration comme email confirmation envoyé (status = 4)." ExistingDbConnection="[v_dbConnection]" sap:VirtualizedContainerService.HintSize="416,138.4" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_W4_Status" Sql="UPDATE registrations SET status = 4, updated_at = NOW() WHERE id = @regId AND status = 2">
+                        <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Marque la registration comme email places épuisées envoyé (status = 5)." ExistingDbConnection="[v_dbConnection]" sap:VirtualizedContainerService.HintSize="416,138.4" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_W5_Status" Sql="UPDATE registrations SET status = 5, updated_at = NOW() WHERE id = @regId AND status = 3">
                           <ui:ExecuteNonQuery.Parameters>
                             <scg:Dictionary x:TypeArguments="x:String, Argument">
                               <InArgument x:TypeArguments="x:Int32" x:Key="@regId">[v_RegId]</InArgument>
                             </scg:Dictionary>
                           </ui:ExecuteNonQuery.Parameters>
                         </ui:ExecuteNonQuery>
-                        <ui:LogMessage DisplayName="Log email de confirmation envoyé." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_W4_Sent" Level="Info" Message="[String.Format(&quot;Email de confirmation envoyé au parent pour reg_id = {0}&quot;, v_RegId)]" />
+                        <ui:LogMessage DisplayName="Log email places épuisées envoyé." sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_W5_Sent" Level="Info" Message="[String.Format(&quot;Email places épuisées envoyé au parent pour reg_id = {0}&quot;, v_RegId)]" />
                       </Sequence>
                     </If.Then>
                     <If.Else>
@@ -428,6 +428,6 @@
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
     <ui:DatabaseDisconnect DatabaseConnection="[v_dbConnection]" DisplayName="Ferme la connexion à la base de données." sap:VirtualizedContainerService.HintSize="449.6,48" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_3" />
-    <ui:LogMessage DisplayName="Fin Workflow 4." sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_W4_End" Level="Info" Message="[&quot;Fin Workflow 4&quot;]" />
+    <ui:LogMessage DisplayName="Fin Workflow 5." sap:VirtualizedContainerService.HintSize="449.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_W5_End" Level="Info" Message="[&quot;Fin Workflow 5&quot;]" />
   </Sequence>
 </Activity>

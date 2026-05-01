@@ -5,7 +5,15 @@
     <x:Property Name="UiPathEventObjectType" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEventObjectId" Type="InArgument(x:String)" />
     <x:Property Name="UiPathAdditionalEventData" Type="InArgument(x:String)" />
+    <x:Property Name="out_ConnString" Type="OutArgument(x:String)" />
+    <x:Property Name="out_DossierTable" Type="OutArgument(sd:DataTable)" />
   </x:Members>
+  <this:LectureBD.out_ConnString>
+    <OutArgument x:TypeArguments="x:String" />
+  </this:LectureBD.out_ConnString>
+  <this:LectureBD.out_DossierTable>
+    <OutArgument x:TypeArguments="sd:DataTable" />
+  </this:LectureBD.out_DossierTable>
   <this:LectureBD.UiPathEventConnector>
     <InArgument x:TypeArguments="x:String" />
   </this:LectureBD.UiPathEventConnector>
@@ -279,57 +287,22 @@
                       </ui:ExecuteQuery.Parameters>
                     </ui:ExecuteQuery>
                     <ui:LogMessage DisplayName="Log a success message with the count of retrieved registrations." sap2010:WorkflowViewState.IdRef="LogMessage_23" Level="Info" Message="[String.Format(&quot;Connexion réussie, inscriptions: {0}&quot;, dtDossiers.Rows.Count)]" />
-                    <If Condition="[dtDossiers.Rows.Count &gt; 0]" DisplayName="Check if any dossiers were found in the database." sap2010:WorkflowViewState.IdRef="If_7">
-                      <If.Then>
-                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_76">
-                          <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_75">
-                            <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_74">
-                              <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_73">
-                                <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_72">
-                                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="If dossiers are found, invoke the verification workflow, passing the connection string and the data table as arguments." sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Workflow2_Verification.xaml">
-                                    <ui:InvokeWorkflowFile.Arguments>
-                                      <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
-                                      <InArgument x:TypeArguments="sd:DataTable" x:Key="in_DossierTable">[dtDossiers]</InArgument>
-                                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_VerifiedRegistrations">[v_VerifiedRegistrations]</OutArgument>
-                                    </ui:InvokeWorkflowFile.Arguments>
-                                  </ui:InvokeWorkflowFile>
-                                  <If Condition="[v_VerifiedRegistrations IsNot Nothing AndAlso v_VerifiedRegistrations.Rows.Count &gt; 0]" DisplayName="Vérifier si des dossiers validés existent avant d'invoquer Workflow 3." sap2010:WorkflowViewState.IdRef="If_6">
-                                    <If.Then>
-                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_70">
-                                        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Invoke Workflow3_AffectationClasse.xaml for class assignment." sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Workflow3_AffectationClasse.xaml">
-                                          <ui:InvokeWorkflowFile.Arguments>
-                                            <InArgument x:TypeArguments="x:String" x:Key="ConnectionString">[v_ConnString]</InArgument>
-                                            <InArgument x:TypeArguments="sd:DataTable" x:Key="in_VerifiedRegistrations">[v_VerifiedRegistrations]</InArgument>
-                                          </ui:InvokeWorkflowFile.Arguments>
-                                        </ui:InvokeWorkflowFile>
-                                      </Sequence>
-                                    </If.Then>
-                                    <If.Else>
-                                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_71">
-                                        <ui:LogMessage DisplayName="Log aucun dossier valide à envoyer vers Workflow 3." sap2010:WorkflowViewState.IdRef="LogMessage_21" Level="Warn" Message="[&quot;Aucun dossier valide à envoyer vers Workflow 3&quot;]" />
-                                      </Sequence>
-                                    </If.Else>
-                                  </If>
-                                </Sequence>
-                              </Sequence>
-                            </Sequence>
-                          </Sequence>
-                        </Sequence>
-                      </If.Then>
-                      <If.Else>
-                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_81">
-                          <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_80">
-                            <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_79">
-                              <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_78">
-                                <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_77">
-                                  <ui:LogMessage DisplayName="If no registrations are found, log a warning message." sap2010:WorkflowViewState.IdRef="LogMessage_24" Level="Warn" Message="[&quot;Aucune inscription trouvée dans la base de données&quot;]" />
-                                </Sequence>
-                              </Sequence>
-                            </Sequence>
-                          </Sequence>
-                        </Sequence>
-                      </If.Else>
-                    </If>
+                    <Assign DisplayName="Expose connection string to caller via out_ConnString." sap2010:WorkflowViewState.IdRef="Assign_LBD_OutConn">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[out_ConnString]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[v_ConnString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Expose dossier table to caller via out_DossierTable." sap2010:WorkflowViewState.IdRef="Assign_LBD_OutDt">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="sd:DataTable">[out_DossierTable]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="sd:DataTable">[dtDossiers]</InArgument>
+                      </Assign.Value>
+                    </Assign>
                   </Sequence>
                 </Sequence>
               </Sequence>

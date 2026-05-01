@@ -228,57 +228,125 @@
       <AssemblyReference>Microsoft.CodeAnalysis.Features</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_36">
+  <Sequence sap:VirtualizedContainerService.HintSize="1262,3412.8" sap2010:WorkflowViewState.IdRef="Sequence_36">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Int32" Name="v_RegId" />
-      <Variable x:TypeArguments="x:String" Name="v_Prenom" />
-      <Variable x:TypeArguments="x:String" Name="v_Email" />
       <Variable x:TypeArguments="x:String" Name="v_ConnString" />
-      <Variable x:TypeArguments="sd:DataTable" Name="dtDossiers" />
-      <Variable x:TypeArguments="x:Boolean" Name="assignmentSuccess" />
-      <Variable x:TypeArguments="x:Int32" Name="__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_" />
-      <Variable x:TypeArguments="x:String" Name="__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
-      <Variable x:TypeArguments="x:String" Name="__v_Email__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
-      <Variable x:TypeArguments="x:Int32" Name="_v_RegId__as_System_Activities_OutArgument_System_Int32_" />
-      <Variable x:TypeArguments="x:String" Name="_v_Prenom__as_System_Activities_OutArgument_System_String_" />
-      <Variable x:TypeArguments="x:String" Name="_v_Email__as_System_Activities_OutArgument_System_String_" />
-      <Variable x:TypeArguments="x:String" Name="in_ConnString" />
-      <Variable x:TypeArguments="sd:DataTable" Name="in_DossierTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_DossierTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_VerifiedRegistrations" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_AssignedRegistrations" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_NoAvailablePlaceRegistrations" />
     </Sequence.Variables>
-    <ui:ManualTrigger Result="{x:Null}" DisplayName="Manual Trigger" sap:VirtualizedContainerService.HintSize="484.8,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_7" />
-    <ui:LogMessage DisplayName="Log the start of the main process" sap:VirtualizedContainerService.HintSize="484.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Démarrage du processus&quot;]" />
-    <TryCatch DisplayName="Handle potential errors during workflow execution" sap:VirtualizedContainerService.HintSize="484.8,676.8" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ManualTrigger Result="{x:Null}" DisplayName="Manual Trigger" sap:VirtualizedContainerService.HintSize="523.2,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_7" />
+    <ui:LogMessage DisplayName="Log the start of the main process" sap:VirtualizedContainerService.HintSize="523.2,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Démarrage du processus&quot;]" />
+    <TryCatch DisplayName="Handle potential errors during workflow execution" sap:VirtualizedContainerService.HintSize="523.2,2971.2" sap2010:WorkflowViewState.IdRef="TryCatch_7">
       <TryCatch.Try>
-        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_34">
-          <Sequence DisplayName="Essayer" sap2010:WorkflowViewState.IdRef="Sequence_33">
-            <Sequence DisplayName="Essayer" sap2010:WorkflowViewState.IdRef="Sequence_32">
-              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Invoke &quot;LectureBD.xaml&quot; workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="LectureBD.xaml">
-                <ui:InvokeWorkflowFile.Arguments>
-                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                </ui:InvokeWorkflowFile.Arguments>
-              </ui:InvokeWorkflowFile>
-              <If Condition="[assignmentSuccess]" DisplayName="Check if class assignment was successful" sap2010:WorkflowViewState.IdRef="If_1">
-                <If.Then>
-                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_30">
-                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Invoke Workflow 4 to send confirmation email" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="C:\Users\gaoue\OneDrive\Documents\UiPath\Inscription_Scolaire_RPA\Workflow4_EnvoiEmailConfirmation.xaml">
-                      <ui:InvokeWorkflowFile.Arguments>
-                        <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                      </ui:InvokeWorkflowFile.Arguments>
-                    </ui:InvokeWorkflowFile>
-                  </Sequence>
-                </If.Then>
-                <If.Else>
-                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_31">
-                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="Invoke Workflow 5 to inform parent about full capacity" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Workflow5_PlacesFullEmail.xaml">
-                      <ui:InvokeWorkflowFile.Arguments>
-                        <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                      </ui:InvokeWorkflowFile.Arguments>
-                    </ui:InvokeWorkflowFile>
-                  </Sequence>
-                </If.Else>
-              </If>
-            </Sequence>
-          </Sequence>
+        <Sequence DisplayName="Essayer" sap:VirtualizedContainerService.HintSize="521.6,2624.8" sap2010:WorkflowViewState.IdRef="Sequence_Main_Try">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="1. Invoke LectureBD.xaml (open DB + read dossiers)" sap:VirtualizedContainerService.HintSize="488,265.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Main_LBD" UnSafe="False" WorkflowFileName="LectureBD.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_ConnString">[v_ConnString]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_DossierTable">[v_DossierTable]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="2. Invoke Workflow2_Verification.xaml" sap:VirtualizedContainerService.HintSize="488,265.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Main_W2" UnSafe="False" WorkflowFileName="Workflow2_Verification.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="in_DossierTable">[v_DossierTable]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_VerifiedRegistrations">[v_VerifiedRegistrations]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <If Condition="[v_VerifiedRegistrations IsNot Nothing AndAlso v_VerifiedRegistrations.Rows.Count &gt; 0]" DisplayName="3. Si des dossiers vérifiés existent : invoquer Workflow 3 puis Workflow 4 / 5." sap:VirtualizedContainerService.HintSize="488,2033.6" sap2010:WorkflowViewState.IdRef="If_Main_HasVerified">
+            <If.Then>
+              <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="486.4,1678.4" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasVerified_Then">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="3a. Invoke Workflow3_AffectationClasse.xaml" sap:VirtualizedContainerService.HintSize="452.8,265.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Main_W3" UnSafe="False" WorkflowFileName="Workflow3_AffectationClasse.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
+                    <InArgument x:TypeArguments="sd:DataTable" x:Key="in_VerifiedRegistrations">[v_VerifiedRegistrations]</InArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_AssignedRegistrations">[v_AssignedRegistrations]</OutArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_NoAvailablePlaceRegistrations">[v_NoAvailablePlaceRegistrations]</OutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <If Condition="[v_AssignedRegistrations IsNot Nothing AndAlso v_AssignedRegistrations.Rows.Count &gt; 0]" DisplayName="4. Si des affectations réussies : invoquer Workflow 4." sap:VirtualizedContainerService.HintSize="452.8,680.8" sap2010:WorkflowViewState.IdRef="If_Main_HasAssigned">
+                  <If.Then>
+                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,316.8" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasAssigned_Then">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="4a. Invoke Workflow4_EnvoiEmailConfirmation.xaml" sap:VirtualizedContainerService.HintSize="416,256.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Main_W4" UnSafe="False" WorkflowFileName="Workflow4_EnvoiEmailConfirmation.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
+                          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_AssignedRegistrations">[v_AssignedRegistrations]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,225.6" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasAssigned_Else">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:LogMessage DisplayName="Aucune affectation réussie : pas d'email de confirmation à envoyer." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Main_NoAssigned" Level="Info" Message="[&quot;Aucune affectation réussie : pas d'email de confirmation à envoyer.&quot;]" />
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <If Condition="[v_NoAvailablePlaceRegistrations IsNot Nothing AndAlso v_NoAvailablePlaceRegistrations.Rows.Count &gt; 0]" DisplayName="5. S'il y a des dossiers sans place : invoquer Workflow 5." sap:VirtualizedContainerService.HintSize="452.8,672" sap2010:WorkflowViewState.IdRef="If_Main_HasNoPlace">
+                  <If.Then>
+                    <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,316.8" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasNoPlace_Then">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" DisplayName="5a. Invoke Workflow5_EnvoiEmailPlacesEpuisees.xaml" sap:VirtualizedContainerService.HintSize="416,256.8" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Main_W5" UnSafe="False" WorkflowFileName="Workflow5_EnvoiEmailPlacesEpuisees.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ConnString">[v_ConnString]</InArgument>
+                          <InArgument x:TypeArguments="sd:DataTable" x:Key="in_NoAvailablePlaceRegistrations">[v_NoAvailablePlaceRegistrations]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="449.6,225.6" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasNoPlace_Else">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:LogMessage DisplayName="Aucun dossier sans place : pas d'email d'épuisement à envoyer." sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Main_NoNoPlace" Level="Info" Message="[&quot;Aucun dossier sans place : pas d'email d'épuisement à envoyer.&quot;]" />
+                    </Sequence>
+                  </If.Else>
+                </If>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="486.4,225.6" sap2010:WorkflowViewState.IdRef="Sequence_Main_HasVerified_Else">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Aucun dossier valide à affecter." sap:VirtualizedContainerService.HintSize="452.8,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_Main_NoVerified" Level="Warn" Message="[&quot;Aucun dossier valide à affecter.&quot;]" />
+              </Sequence>
+            </If.Else>
+          </If>
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
@@ -287,11 +355,26 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_35" />
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,89.6" sap2010:WorkflowViewState.IdRef="Sequence_35">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </Sequence>
           </ActivityAction>
         </Catch>
       </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Enfin" sap:VirtualizedContainerService.HintSize="521.6,89.6" sap2010:WorkflowViewState.IdRef="Sequence_37">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </TryCatch.Finally>
     </TryCatch>
-    <ui:LogMessage DisplayName="Log the end of the main process" sap:VirtualizedContainerService.HintSize="484.8,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Fin du processus&quot;]" />
+    <ui:LogMessage DisplayName="Log the end of the main process" sap:VirtualizedContainerService.HintSize="523.2,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Fin du processus&quot;]" />
   </Sequence>
 </Activity>

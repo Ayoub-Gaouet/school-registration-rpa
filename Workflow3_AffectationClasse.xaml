@@ -371,7 +371,10 @@
                     <ui:LogMessage DisplayName="Log current registration processing." sap2010:WorkflowViewState.IdRef="LogMessage_196577" Level="Info" Message="[String.Format(&quot;Traitement affectation classe pour reg_id = {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
                     <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[availableClasses]" DisplayName="Search for an available class for the student''s level and establishment." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_4" Sql="SELECT id, name, places_restantes FROM education_classes WHERE teaching_level_id = @level AND establishement_id = @estab AND places_restantes &gt; 0 AND active = 1 ORDER BY places_restantes DESC LIMIT 1">
                       <ui:ExecuteQuery.Parameters>
-                        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                        <scg:Dictionary x:TypeArguments="x:String, Argument">
+                          <InArgument x:TypeArguments="x:Int32" x:Key="@level">[Convert.ToInt32(CurrentRow("teaching_level_id"))]</InArgument>
+                          <InArgument x:TypeArguments="x:Int32" x:Key="@estab">[Convert.ToInt32(CurrentRow("establishment_id"))]</InArgument>
+                        </scg:Dictionary>
                       </ui:ExecuteQuery.Parameters>
                     </ui:ExecuteQuery>
                     <If Condition="[availableClasses IsNot Nothing AndAlso availableClasses.Rows.Count &gt; 0]" DisplayName="Check if an available class was found." sap2010:WorkflowViewState.IdRef="If_12">
@@ -380,12 +383,17 @@
                           <ui:LogMessage DisplayName="Log available class found." sap2010:WorkflowViewState.IdRef="LogMessage_196578" Level="Info" Message="[String.Format(&quot;Classe disponible trouvée : class_id = {0}&quot;, availableClasses.Rows(0)(&quot;id&quot;))]" />
                           <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Update registration record with assigned class ID." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_9" Sql="UPDATE registrations SET education_class_id = @classId, status = 2, updated_at = NOW() WHERE id = @regId">
                             <ui:ExecuteNonQuery.Parameters>
-                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                              <scg:Dictionary x:TypeArguments="x:String, Argument">
+                                <InArgument x:TypeArguments="x:Int32" x:Key="@classId">[Convert.ToInt32(availableClasses.Rows(0)("id"))]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="@regId">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
+                              </scg:Dictionary>
                             </ui:ExecuteNonQuery.Parameters>
                           </ui:ExecuteNonQuery>
                           <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Decrement remaining places in the assigned class." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_10" Sql="UPDATE education_classes SET places_restantes = places_restantes - 1, updated_at = NOW() WHERE id = @classId AND places_restantes &gt; 0">
                             <ui:ExecuteNonQuery.Parameters>
-                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                              <scg:Dictionary x:TypeArguments="x:String, Argument">
+                                <InArgument x:TypeArguments="x:Int32" x:Key="@classId">[Convert.ToInt32(availableClasses.Rows(0)("id"))]</InArgument>
+                              </scg:Dictionary>
                             </ui:ExecuteNonQuery.Parameters>
                           </ui:ExecuteNonQuery>
                           <Assign DisplayName="Increment successfulAssignments counter." sap2010:WorkflowViewState.IdRef="Assign_47637">
@@ -410,7 +418,9 @@
                         <Sequence sap2010:WorkflowViewState.IdRef="Sequence_54">
                           <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Update registration status to 3 (no place)." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_11" Sql="UPDATE registrations SET status = 3, updated_at = NOW() WHERE id = @regId">
                             <ui:ExecuteNonQuery.Parameters>
-                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                              <scg:Dictionary x:TypeArguments="x:String, Argument">
+                                <InArgument x:TypeArguments="x:Int32" x:Key="@regId">[Convert.ToInt32(CurrentRow("reg_id"))]</InArgument>
+                              </scg:Dictionary>
                             </ui:ExecuteNonQuery.Parameters>
                           </ui:ExecuteNonQuery>
                           <Assign DisplayName="Increment failedAssignments counter." sap2010:WorkflowViewState.IdRef="Assign_47638">
