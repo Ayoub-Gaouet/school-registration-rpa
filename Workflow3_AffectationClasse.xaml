@@ -1,11 +1,15 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Workflow3_AffectationClasse" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap2010" x:Class="Workflow3_AffectationClasse" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="UiPathEventConnector" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEvent" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEventObjectType" Type="InArgument(x:String)" />
     <x:Property Name="UiPathEventObjectId" Type="InArgument(x:String)" />
     <x:Property Name="UiPathAdditionalEventData" Type="InArgument(x:String)" />
+    <x:Property Name="in_ConnString" Type="InArgument(x:String)" />
+    <x:Property Name="in_VerifiedRegistrations" Type="InArgument(sd:DataTable)" />
     <x:Property Name="ConnectionString" Type="InArgument(x:String)" />
+    <x:Property Name="out_AssignedRegistrations" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_NoAvailablePlaceRegistrations" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <this:Workflow3_AffectationClasse.UiPathEventConnector>
     <InArgument x:TypeArguments="x:String" />
@@ -22,9 +26,21 @@
   <this:Workflow3_AffectationClasse.UiPathAdditionalEventData>
     <InArgument x:TypeArguments="x:String" />
   </this:Workflow3_AffectationClasse.UiPathAdditionalEventData>
+  <this:Workflow3_AffectationClasse.in_ConnString>
+    <InArgument x:TypeArguments="x:String" />
+  </this:Workflow3_AffectationClasse.in_ConnString>
+  <this:Workflow3_AffectationClasse.in_VerifiedRegistrations>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:Workflow3_AffectationClasse.in_VerifiedRegistrations>
   <this:Workflow3_AffectationClasse.ConnectionString>
     <InArgument x:TypeArguments="x:String" />
   </this:Workflow3_AffectationClasse.ConnectionString>
+  <this:Workflow3_AffectationClasse.out_AssignedRegistrations>
+    <OutArgument x:TypeArguments="sd:DataTable" />
+  </this:Workflow3_AffectationClasse.out_AssignedRegistrations>
+  <this:Workflow3_AffectationClasse.out_NoAvailablePlaceRegistrations>
+    <OutArgument x:TypeArguments="sd:DataTable" />
+  </this:Workflow3_AffectationClasse.out_NoAvailablePlaceRegistrations>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
@@ -232,34 +248,60 @@
       <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="705.2,3532" sap2010:WorkflowViewState.IdRef="Sequence_31">
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_59">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="dbConnection" />
       <Variable x:TypeArguments="sd:DataTable" Name="pendingRegistrations" />
       <Variable x:TypeArguments="x:Int32" Name="successfulAssignments" />
       <Variable x:TypeArguments="x:Int32" Name="failedAssignments" />
       <Variable x:TypeArguments="sd:DataTable" Name="availableClasses" />
+      <Variable x:TypeArguments="x:String" Name="v_ConnString" />
+      <Variable x:TypeArguments="ui:DatabaseConnection" Name="DatabaseConnection" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtDossiers" />
+      <Variable x:TypeArguments="x:Int32" Name="__v_RegId__as_System_Activities_OutArgument_System_Int32___as_System_Activities_OutArgument_System_Int32_" />
+      <Variable x:TypeArguments="x:String" Name="__v_Prenom__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:String" Name="__v_Email__as_System_Activities_OutArgument_System_String___as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:Int32" Name="_v_RegId__as_System_Activities_OutArgument_System_Int32_" />
+      <Variable x:TypeArguments="x:String" Name="_v_Prenom__as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:String" Name="_v_Email__as_System_Activities_OutArgument_System_String_" />
+      <Variable x:TypeArguments="x:Int32" Name="v_RegId" />
+      <Variable x:TypeArguments="x:String" Name="v_Prenom" />
+      <Variable x:TypeArguments="x:String" Name="v_Email" />
+      <Variable x:TypeArguments="sd:DataTable" Name="in_DossierTable" />
+      <Variable x:TypeArguments="sd:DataTable" Name="v_VerifiedRegistrations" />
+      <Variable x:TypeArguments="x:String" Name="UiPathEventConnector" />
+      <Variable x:TypeArguments="x:String" Name="UiPathEvent" />
+      <Variable x:TypeArguments="x:String" Name="UiPathEventObjectType" />
+      <Variable x:TypeArguments="x:String" Name="UiPathEventObjectId" />
+      <Variable x:TypeArguments="x:String" Name="UiPathAdditionalEventData" />
     </Sequence.Variables>
-    <sap:WorkflowViewStateService.ViewState>
-      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-      </scg:Dictionary>
-    </sap:WorkflowViewStateService.ViewState>
-    <ui:ManualTrigger Result="{x:Null}" DisplayName="Start the process manually." sap:VirtualizedContainerService.HintSize="521.6,78.4" sap2010:WorkflowViewState.IdRef="ManualTrigger_4" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance);" DisplayName="Register the MySql.Data.MySqlClient factory." sap:VirtualizedContainerService.HintSize="521.6,196.8" sap2010:WorkflowViewState.IdRef="InvokeCode_4" Language="CSharp">
+    <ui:ManualTrigger Result="{x:Null}" DisplayName="Start the process manually." sap2010:WorkflowViewState.IdRef="ManualTrigger_4" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.Data.Common.DbProviderFactories.RegisterFactory(&quot;MySql.Data.MySqlClient&quot;, MySql.Data.MySqlClient.MySqlClientFactory.Instance);" DisplayName="Register MySql factory" sap2010:WorkflowViewState.IdRef="InvokeCode_8" Language="CSharp">
       <ui:InvokeCode.Arguments>
         <scg:Dictionary x:TypeArguments="x:String, Argument" />
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
-    <If Condition="[String.IsNullOrEmpty(ConnectionString)]" DisplayName="Check if ConnectionString is null or empty" sap:VirtualizedContainerService.HintSize="521.6,238.4" sap2010:WorkflowViewState.IdRef="If_4">
+    <If Condition="[Not String.IsNullOrEmpty(in_ConnString)]" DisplayName="Use in_ConnString if provided, otherwise use ConnectionString." sap2010:WorkflowViewState.IdRef="If_10">
       <If.Then>
-        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="449.6,80" sap2010:WorkflowViewState.IdRef="Sequence_21">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Assign default ConnectionString" sap2010:WorkflowViewState.IdRef="Assign_13">
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_49">
+          <Assign DisplayName="Assign ConnectionString = in_ConnString" sap2010:WorkflowViewState.IdRef="Assign_47630">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ConnectionString]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_ConnString]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_50" />
+      </If.Else>
+    </If>
+    <If Condition="[String.IsNullOrEmpty(ConnectionString)]" DisplayName="Use default connection string if ConnectionString is empty." sap2010:WorkflowViewState.IdRef="If_11">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_51">
+          <Assign DisplayName="Assign default connection string" sap2010:WorkflowViewState.IdRef="Assign_47631">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[ConnectionString]</OutArgument>
             </Assign.To>
@@ -270,17 +312,36 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_22" />
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_52" />
       </If.Else>
     </If>
-    <ui:DatabaseConnect DisplayName="Connect to the MySQL database." sap:VirtualizedContainerService.HintSize="521.6,92" sap2010:WorkflowViewState.IdRef="DatabaseConnect_4" ProviderName="MySql.Data.MySqlClient" ConnectionString="[ConnectionString]" DatabaseConnection="[dbConnection]" />
-    <ui:LogMessage DisplayName="Log a message indicating successful database connection." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Connexion DB ouverte&quot;]" />
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[pendingRegistrations]" DisplayName="Retrieve all pending registrations from the database." ExistingDbConnection="[dbConnection]" sap:VirtualizedContainerService.HintSize="521.6,147.2" sap2010:WorkflowViewState.IdRef="ExecuteQuery_7" Sql="SELECT r.id AS reg_id, r.pupil_id, p.name_first_name AS prenom, r.teaching_level_id, r.establishment_id FROM registrations r JOIN pupils p ON r.pupil_id = p.id WHERE r.education_class_id IS NULL AND r.status = 1">
-      <ui:ExecuteQuery.Parameters>
-        <scg:Dictionary x:TypeArguments="x:String, Argument" />
-      </ui:ExecuteQuery.Parameters>
-    </ui:ExecuteQuery>
-    <Assign DisplayName="Initialize the count of successful assignments to zero." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="Assign_14">
+    <ui:DatabaseConnect DisplayName="Connect to MySQL database." sap2010:WorkflowViewState.IdRef="DatabaseConnect_4" ProviderName="MySql.Data.MySqlClient" ConnectionString="[ConnectionString]" DatabaseConnection="[dbConnection]" />
+    <ui:LogMessage DisplayName="Log start of Workflow 3." sap2010:WorkflowViewState.IdRef="LogMessage_196576" Level="Info" Message="[&quot;Début Workflow 3 : affectation des classes&quot;]" />
+    <Assign DisplayName="Initialize out_AssignedRegistrations." sap2010:WorkflowViewState.IdRef="Assign_47632">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[out_AssignedRegistrations]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[New System.Data.DataTable()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Initialize out_NoAvailablePlaceRegistrations." sap2010:WorkflowViewState.IdRef="Assign_47633">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[out_NoAvailablePlaceRegistrations]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[New System.Data.DataTable()]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign pendingRegistrations = in_VerifiedRegistrations." sap2010:WorkflowViewState.IdRef="Assign_47634">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[pendingRegistrations]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[in_VerifiedRegistrations]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Initialize successfulAssignments to 0." sap2010:WorkflowViewState.IdRef="Assign_47635">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[successfulAssignments]</OutArgument>
       </Assign.To>
@@ -288,7 +349,7 @@
         <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Initialize the count of failed assignments to zero." sap:VirtualizedContainerService.HintSize="521.6,174.4" sap2010:WorkflowViewState.IdRef="Assign_15">
+    <Assign DisplayName="Initialize failedAssignments to 0." sap2010:WorkflowViewState.IdRef="Assign_47636">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[failedAssignments]</OutArgument>
       </Assign.To>
@@ -296,61 +357,78 @@
         <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[pendingRegistrations]" DisplayName="Iterate through each pending registration to assign a class." sap:VirtualizedContainerService.HintSize="521.6,2010.4" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[pendingRegistrations]" DisplayName="Iterate through verified registrations for class assignment." sap2010:WorkflowViewState.IdRef="ForEachRow_4">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_30">
-            <TryCatch DisplayName="Try to assign a class and handle any potential errors." sap:VirtualizedContainerService.HintSize="486.4,1768.8" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+          <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_58">
+            <TryCatch DisplayName="Handle class assignment and potential errors." sap2010:WorkflowViewState.IdRef="TryCatch_4">
               <TryCatch.Try>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_28">
-                  <Sequence DisplayName="Essayer" sap2010:WorkflowViewState.IdRef="Sequence_27">
-                    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[availableClasses]" DisplayName="Find an available class for the current student's teaching level and establishment." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_8" Sql="[String.Format(&quot;SELECT id, places_restantes FROM education_classes WHERE teaching_level_id = {0} AND establishement_id = {1} AND places_restantes &gt; 0 LIMIT 1&quot;, CurrentRow(&quot;teaching_level_id&quot;), CurrentRow(&quot;establishment_id&quot;))]">
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_56">
+                  <Sequence DisplayName="Try sequence for class assignment." sap2010:WorkflowViewState.IdRef="Sequence_55">
+                    <ui:LogMessage DisplayName="Log current registration processing." sap2010:WorkflowViewState.IdRef="LogMessage_196577" Level="Info" Message="[String.Format(&quot;Traitement affectation classe pour reg_id = {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
+                    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DataTable="[availableClasses]" DisplayName="Search for an available class for the student''s level and establishment." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteQuery_4" Sql="SELECT id, name, places_restantes FROM education_classes WHERE teaching_level_id = @level AND establishement_id = @estab AND places_restantes &gt; 0 AND active = 1 ORDER BY places_restantes DESC LIMIT 1">
                       <ui:ExecuteQuery.Parameters>
                         <scg:Dictionary x:TypeArguments="x:String, Argument" />
                       </ui:ExecuteQuery.Parameters>
                     </ui:ExecuteQuery>
-                    <If Condition="[availableClasses.Rows.Count &gt; 0]" DisplayName="Check if any classes are available." sap2010:WorkflowViewState.IdRef="If_5">
+                    <If Condition="[availableClasses IsNot Nothing AndAlso availableClasses.Rows.Count &gt; 0]" DisplayName="Check if an available class was found." sap2010:WorkflowViewState.IdRef="If_12">
                       <If.Then>
-                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_24">
-                          <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_23">
-                            <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Update the registration record with the assigned class ID." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_7" Sql="[String.Format(&quot;UPDATE registrations SET education_class_id = {0} WHERE id = {1}&quot;, availableClasses.Rows(0)(&quot;id&quot;), CurrentRow(&quot;reg_id&quot;))]">
-                              <ui:ExecuteNonQuery.Parameters>
-                                <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                              </ui:ExecuteNonQuery.Parameters>
-                            </ui:ExecuteNonQuery>
-                            <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Decrement the number of available places in the assigned class." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_8" Sql="[String.Format(&quot;UPDATE education_classes SET places_restantes = places_restantes - 1 WHERE id = {0}&quot;, availableClasses.Rows(0)(&quot;id&quot;))]">
-                              <ui:ExecuteNonQuery.Parameters>
-                                <scg:Dictionary x:TypeArguments="x:String, Argument" />
-                              </ui:ExecuteNonQuery.Parameters>
-                            </ui:ExecuteNonQuery>
-                            <Assign DisplayName="Increment the successful assignments counter." sap2010:WorkflowViewState.IdRef="Assign_16">
-                              <Assign.To>
-                                <OutArgument x:TypeArguments="x:Int32">[successfulAssignments]</OutArgument>
-                              </Assign.To>
-                              <Assign.Value>
-                                <InArgument x:TypeArguments="x:Int32">[successfulAssignments + 1]</InArgument>
-                              </Assign.Value>
-                            </Assign>
-                            <ui:LogMessage DisplayName="Log a success message for the class assignment." sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[String.Format(&quot;Successfully assigned class {0} to registration {1} for pupil {2}.&quot;, availableClasses.Rows(0)(&quot;id&quot;), CurrentRow(&quot;reg_id&quot;), CurrentRow(&quot;prenom&quot;))]" />
-                          </Sequence>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_53">
+                          <ui:LogMessage DisplayName="Log available class found." sap2010:WorkflowViewState.IdRef="LogMessage_196578" Level="Info" Message="[String.Format(&quot;Classe disponible trouvée : class_id = {0}&quot;, availableClasses.Rows(0)(&quot;id&quot;))]" />
+                          <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Update registration record with assigned class ID." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_9" Sql="UPDATE registrations SET education_class_id = @classId, status = 2, updated_at = NOW() WHERE id = @regId">
+                            <ui:ExecuteNonQuery.Parameters>
+                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                            </ui:ExecuteNonQuery.Parameters>
+                          </ui:ExecuteNonQuery>
+                          <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Decrement remaining places in the assigned class." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_10" Sql="UPDATE education_classes SET places_restantes = places_restantes - 1, updated_at = NOW() WHERE id = @classId AND places_restantes &gt; 0">
+                            <ui:ExecuteNonQuery.Parameters>
+                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                            </ui:ExecuteNonQuery.Parameters>
+                          </ui:ExecuteNonQuery>
+                          <Assign DisplayName="Increment successfulAssignments counter." sap2010:WorkflowViewState.IdRef="Assign_47637">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[successfulAssignments]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[successfulAssignments + 1]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <ui:LogMessage DisplayName="Log successful assignment." sap2010:WorkflowViewState.IdRef="LogMessage_196579" Level="Info" Message="[String.Format(&quot;Affectation réussie : reg_id = {0}, class_id = {1}&quot;, CurrentRow(&quot;reg_id&quot;), availableClasses.Rows(0)(&quot;id&quot;))]" />
+                          <ui:LogMessage DisplayName="Add to list of successful assignments." sap2010:WorkflowViewState.IdRef="LogMessage_196580" Level="Info" Message="[String.Format(&quot;Ajout vers liste des affectations réussies : reg_id = {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
+                          <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (assignedDt.Rows.Count == 0) { foreach (System.Data.DataColumn col in sourceRow.Table.Columns) { assignedDt.Columns.Add(col.ColumnName, col.DataType); } } assignedDt.ImportRow(sourceRow);" DisplayName="Ajouter dans out_AssignedRegistrations" sap2010:WorkflowViewState.IdRef="InvokeCode_9" Language="CSharp">
+                            <ui:InvokeCode.Arguments>
+                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="assignedDt">[out_AssignedRegistrations]</InOutArgument>
+                              <InArgument x:TypeArguments="sd:DataRow" x:Key="sourceRow">[CurrentRow]</InArgument>
+                            </ui:InvokeCode.Arguments>
+                          </ui:InvokeCode>
                         </Sequence>
                       </If.Then>
                       <If.Else>
-                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_26">
-                          <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_25">
-                            <Assign DisplayName="Increment the failed assignments counter." sap2010:WorkflowViewState.IdRef="Assign_17">
-                              <Assign.To>
-                                <OutArgument x:TypeArguments="x:Int32">[failedAssignments]</OutArgument>
-                              </Assign.To>
-                              <Assign.Value>
-                                <InArgument x:TypeArguments="x:Int32">[failedAssignments + 1]</InArgument>
-                              </Assign.Value>
-                            </Assign>
-                            <ui:LogMessage DisplayName="Log a warning that no class was available for the registration." sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Warn" Message="[String.Format(&quot;No available class found for registration {0} (Pupil: {1}).&quot;, CurrentRow(&quot;reg_id&quot;), CurrentRow(&quot;prenom&quot;))]" />
-                          </Sequence>
+                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_54">
+                          <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Update registration status to 3 (no place)." ExistingDbConnection="[dbConnection]" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_11" Sql="UPDATE registrations SET status = 3, updated_at = NOW() WHERE id = @regId">
+                            <ui:ExecuteNonQuery.Parameters>
+                              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                            </ui:ExecuteNonQuery.Parameters>
+                          </ui:ExecuteNonQuery>
+                          <Assign DisplayName="Increment failedAssignments counter." sap2010:WorkflowViewState.IdRef="Assign_47638">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:Int32">[failedAssignments]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:Int32">[failedAssignments + 1]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <ui:LogMessage DisplayName="Log no available class." sap2010:WorkflowViewState.IdRef="LogMessage_196581" Level="Warn" Message="[String.Format(&quot;Aucune place disponible pour reg_id = {0}, niveau = {1}&quot;, CurrentRow(&quot;reg_id&quot;), CurrentRow(&quot;teaching_level_id&quot;))]" />
+                          <ui:LogMessage DisplayName="Add to list of exhausted places." sap2010:WorkflowViewState.IdRef="LogMessage_196582" Level="Info" Message="[String.Format(&quot;Ajout vers liste places épuisées : reg_id = {0}&quot;, CurrentRow(&quot;reg_id&quot;))]" />
+                          <ui:InvokeCode ContinueOnError="{x:Null}" Code="if (noPlaceDt.Rows.Count == 0) { foreach (System.Data.DataColumn col in sourceRow.Table.Columns) { noPlaceDt.Columns.Add(col.ColumnName, col.DataType); } } noPlaceDt.ImportRow(sourceRow);" DisplayName="Ajouter dans out_NoAvailablePlaceRegistrations" sap2010:WorkflowViewState.IdRef="InvokeCode_10" Language="CSharp">
+                            <ui:InvokeCode.Arguments>
+                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="noPlaceDt">[out_NoAvailablePlaceRegistrations]</InOutArgument>
+                              <InArgument x:TypeArguments="sd:DataRow" x:Key="sourceRow">[CurrentRow]</InArgument>
+                            </ui:InvokeCode.Arguments>
+                          </ui:InvokeCode>
                         </Sequence>
                       </If.Else>
                     </If>
@@ -358,12 +436,12 @@
                 </Sequence>
               </TryCatch.Try>
               <TryCatch.Catches>
-                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_5">
                   <ActivityAction x:TypeArguments="s:Exception">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                     </ActivityAction.Argument>
-                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_29" />
+                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_57" />
                   </ActivityAction>
                 </Catch>
               </TryCatch.Catches>
@@ -372,7 +450,7 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
-    <ui:DatabaseDisconnect DatabaseConnection="[dbConnection]" DisplayName="Disconnect from the database after processing all registrations." sap:VirtualizedContainerService.HintSize="521.6,56.8" sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_4" />
-    <ui:LogMessage DisplayName="Log a summary of the class assignment process." sap:VirtualizedContainerService.HintSize="521.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[String.Format(&quot;Class assignment process finished. Successful: {0}, Failed: {1}.&quot;, successfulAssignments, failedAssignments)]" />
+    <ui:DatabaseDisconnect DatabaseConnection="[dbConnection]" DisplayName="Disconnect from the database after processing." sap2010:WorkflowViewState.IdRef="DatabaseDisconnect_4" />
+    <ui:LogMessage DisplayName="Log end of Workflow 3 summary." sap2010:WorkflowViewState.IdRef="LogMessage_196583" Level="Info" Message="[String.Format(&quot;Fin Workflow 3 : {0} affectation(s) réussie(s), {1} échec(s).&quot;, successfulAssignments, failedAssignments)]" />
   </Sequence>
 </Activity>

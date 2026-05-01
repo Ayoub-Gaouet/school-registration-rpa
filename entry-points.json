@@ -86,11 +86,77 @@
           }
         },
         "required": []
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "out_VerifiedRegistrations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
       }
     },
     {
       "filePath": "Workflow3_AffectationClasse.xaml",
       "uniqueId": "46b5a5ad-8b0f-44a8-8ef4-3ddb99dc0653",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "UiPathEventConnector": {
+            "type": "string"
+          },
+          "UiPathEvent": {
+            "type": "string"
+          },
+          "UiPathEventObjectType": {
+            "type": "string"
+          },
+          "UiPathEventObjectId": {
+            "type": "string"
+          },
+          "UiPathAdditionalEventData": {
+            "type": "string"
+          },
+          "ConnectionString": {
+            "type": "string"
+          },
+          "in_ConnString": {
+            "type": "string"
+          },
+          "in_VerifiedRegistrations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "out_AssignedRegistrations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "out_NoAvailablePlaceRegistrations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    {
+      "filePath": "Workflow4_EnvoiEmailConfirmation.xaml",
+      "uniqueId": "3db91a2f-03f0-40a7-b2fe-91a2e8c6be64",
       "type": "process",
       "input": {
         "type": "object",

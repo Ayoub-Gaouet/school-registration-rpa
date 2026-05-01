@@ -70,6 +70,12 @@
       "uniqueId": "46b5a5ad-8b0f-44a8-8ef4-3ddb99dc0653",
       "input": [],
       "output": []
+    },
+    {
+      "filePath": "Workflow4_EnvoiEmailConfirmation.xaml",
+      "uniqueId": "3db91a2f-03f0-40a7-b2fe-91a2e8c6be64",
+      "input": [],
+      "output": []
     }
   ],
   "isTemplate": false,

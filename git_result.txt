@@ -1,3 +1,0 @@
-=== CREATE BRANCH === 
-Switched to a new branch 'feature/workflow3-affectation-classe'
-=== ADD ALL === 

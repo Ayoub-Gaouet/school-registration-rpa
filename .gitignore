@@ -3,16 +3,20 @@
 .objects/
 .screenshots/
 .settings/
-*.xaml.json
-project.uiproj
-TestCases/
 .local/
+.tmh/
+.project/
+.templates/
+TestCases/
+project.uiproj
+project_lock.json
 
 # Logs
 *.log
 
 # IDE files
 .vs/
+.idea/
 *.suo
 *.user
 
@@ -20,3 +24,7 @@ TestCases/
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# Backup
+*.bak
+*~
